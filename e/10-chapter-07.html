@@ -1,0 +1,1454 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; object-src &#x27;none&#x27;; frame-ancestors &#x27;none&#x27;; form-action &#x27;none&#x27;; font-src &#x27;none&#x27;; frame-src &#x27;none&#x27;; media-src &#x27;none&#x27;; style-src &#x27;sha256-TnCLPPESlfQ+G+EMqdreWXIZTMXLUvrDTO1nfWSPd20=&#x27;; script-src &#x27;sha256-GZhCNFt9sxFrUT77naH7YMRnCXhcqPmZ/ZKt6ubsjMc=&#x27;; img-src &#x27;self&#x27; data:; connect-src &#x27;none&#x27;"><title>Chapter 7 — Structuring Analytical Problems — Psychology of Intelligence Analysis</title><style>:root {
+  --reader-prose-measure: 60ch;
+  --reader-shell-gutter: clamp(0.5rem, 2vw, 2rem);
+  --reader-document-gutter: clamp(1rem, 5vw, 4rem);
+  --source-gap-cap: 8rem;
+  color-scheme: light;
+  font-family: Georgia, "Times New Roman", serif;
+  background: #eee9de;
+  color: #181714;
+}
+
+body {
+  margin: 0;
+}
+
+.reader-shell {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 48rem) minmax(20rem, 1fr);
+  gap: 2rem;
+  max-width: 90rem;
+  margin: auto;
+  padding: var(--reader-shell-gutter);
+}
+
+.document {
+  box-sizing: border-box;
+  container-type: inline-size;
+  container-name: document;
+  background: white;
+  padding: clamp(2rem, 6vw, 5rem);
+  line-height: 1.62;
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 14%);
+}
+
+.reader-shell.static-export {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 72rem;
+}
+
+.static-export .document {
+  min-height: 80vh;
+  padding-inline: var(--reader-document-gutter);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+/* Book pages are for hours of continuous reading: one quiet column at a
+   55-75 character measure, 18px serif with generous leading, warm paper
+   tones in light mode and a true dark mode, no print-facsimile card. */
+body.static-page {
+  background: #faf9f6;
+  color: #1f1e1c;
+}
+
+.static-page .reader-shell.static-export {
+  max-inline-size: 46rem;
+  padding: 0.9rem 1.15rem 2.5rem;
+}
+
+.static-page .static-export {
+  --reader-prose-measure: 100%;
+  --reader-document-gutter: 0;
+}
+
+.static-page .static-export .document {
+  min-height: auto;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.static-page .static-export .document h1,
+.static-page .static-export .document h2,
+.static-page .static-export .document h3,
+.static-page .static-export .document h4 {
+  text-align: left;
+  line-height: 1.3;
+  margin-block: 1.9em 0.6em;
+}
+
+.static-page .static-export .document h1 {
+  font-size: 1.55rem;
+  border-bottom: 1px solid #e4e0d6;
+  padding-bottom: 0.35rem;
+}
+
+.static-page .static-export .document h2 {
+  font-size: 1.32rem;
+}
+
+.static-page .static-export .document h3 {
+  font-size: 1.15rem;
+}
+
+.static-page .static-export .document h4 {
+  font-size: 1.04rem;
+}
+
+.static-page .static-export .document p {
+  margin-block: 0.75em;
+}
+
+.static-page .static-export figure img {
+  border: 1px solid #e5e1d8;
+}
+
+.static-page .publication-navigation {
+  border: 0;
+  border-bottom: 1px solid #e8e4db;
+  border-radius: 0;
+  background: none;
+  max-inline-size: 46rem;
+  padding: 0.55rem 0;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+}
+
+.static-page .publication-navigation-bottom {
+  border-bottom: 0;
+  border-top: 1px solid #e8e4db;
+  margin-block: 2rem 0;
+}
+
+.static-page .publication-navigation a {
+  color: #275b9d;
+  text-decoration: none;
+}
+
+.static-page .publication-navigation a:hover {
+  text-decoration: underline;
+}
+
+.static-page .static-export .notes {
+  border-top: 1px solid #e4e0d6;
+}
+
+.static-page .static-export .footnote {
+  border-left-color: #ddd8cc;
+  color: #5d5a53;
+  font-size: 0.9rem;
+}
+
+/* Inside the collected notes the source-page geometry gaps are meaningless —
+   notes read as one compact list. */
+.static-page .static-export .notes .footnote,
+.static-page .static-export .notes [class*="source-gap-"] {
+  margin-block: 0.5rem;
+}
+
+.static-page .static-export .document li {
+  list-style: none;
+  margin-block: 0.55rem;
+  /* Hanging indent: the whole item sits inset, wrapped lines align with the
+     text after the bullet character (which lives in the text itself). */
+  margin-inline-start: 1.4rem;
+  padding-inline-start: 1.05rem;
+  text-indent: -1.05rem;
+}
+
+/* Reading pages set their own vertical rhythm: source-page geometry gaps
+   would otherwise reproduce print page breaks as huge blank runs. */
+.static-page .static-export .document [class*="source-gap-"] {
+  --source-block-gap: 0.55rem;
+}
+
+.static-page .static-export .document sup a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.static-page .static-export .footnote .note-back {
+  margin-left: 0.35rem;
+  color: #275b9d;
+  text-decoration: none;
+}
+
+/* Jump targets land mid-viewport, not at the top edge. */
+.static-page .static-export aside.footnote,
+.static-page .static-export sup[id^="ref-"] {
+  scroll-margin-top: 40vh;
+}
+
+/* Jump highlighting, pure CSS: the note the reader just navigated to, or the
+   sentence containing the marker they returned to. */
+.static-page .static-export aside.footnote:target,
+.static-page .static-export .sentence:has(sup:target),
+.static-page .static-export sup:target,
+.static-page .note-target {
+  background: #fbf0c2;
+  border-radius: 2px;
+  transition: background 0.4s;
+}
+
+@media (prefers-color-scheme: dark) {
+  body.static-page {
+    background: #151513;
+    color: #d8d5cd;
+  }
+
+  .static-page .static-export .document h1 {
+    border-bottom-color: #33322e;
+  }
+
+  .static-page .publication-navigation,
+  .static-page .publication-navigation-bottom {
+    border-color: #33322e;
+  }
+
+  .static-page .publication-navigation a,
+  .static-page .static-export .document sup {
+    color: #8fb3e8;
+  }
+
+  .static-page .static-export .notes {
+    border-top-color: #33322e;
+  }
+
+  .static-page .static-export .footnote {
+    border-left-color: #3a3934;
+    color: #a29e94;
+  }
+
+  .static-page .static-export figure img {
+    border-color: #3a3934;
+    filter: brightness(0.88);
+  }
+
+  .static-page .static-export aside.footnote:target,
+  .static-page .static-export .sentence:has(sup:target),
+.static-page .static-export sup:target,
+  .static-page .note-target {
+    background: #4d4218;
+    box-shadow: inset 3px 0 0 #d4b64a;
+  }
+}
+
+/* Static book pages read like prose, not like a print facsimile: no paragraph
+   indent, breathing room between paragraphs, quiet inline note markers, and
+   all notes collected at the end of the page. */
+.static-export .document p {
+  margin-block: 0.6rem;
+  text-indent: 0;
+}
+
+.static-export .document sup {
+  color: #0a5ec2;
+  font-weight: 600;
+}
+
+.static-export .notes {
+  margin-top: 2.5rem;
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+}
+
+.static-export .footnote {
+  border-top: 0;
+  border-left: 2px solid #e2e2e2;
+  margin: 0.45rem auto;
+  padding: 0.1rem 0 0.1rem 1rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #555;
+  text-align: left;
+}
+
+.export-tools {
+  margin-top: 1rem;
+  text-align: center;
+  font: 0.8rem/1.4 system-ui, sans-serif;
+}
+
+.publication-navigation {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.75rem;
+  max-inline-size: var(--reader-prose-measure);
+  margin: 0 auto 1rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid #d7d0c3;
+  border-radius: 0.25rem;
+  background: white;
+  font: clamp(0.78rem, 0.74rem + 0.15vw, 0.9rem) / 1.35 system-ui, sans-serif;
+}
+
+.publication-navigation-bottom {
+  margin-block: 1rem 0;
+}
+
+.publication-navigation a {
+  color: #473b27;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.15em;
+}
+
+.publication-navigation .publication-previous {
+  justify-self: start;
+}
+
+.publication-navigation .publication-contents {
+  justify-self: center;
+  font-weight: 650;
+}
+
+.publication-navigation .publication-next {
+  justify-self: end;
+  text-align: end;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.18;
+  text-align: center;
+}
+
+.document h1 {
+  font-size: 1.5em;
+}
+
+.document h2,
+.document h3 {
+  font-size: 1.08em;
+}
+
+.document .heading-kicker {
+  font-size: 0.78em;
+  letter-spacing: 0.025em;
+}
+
+p {
+  margin: 0;
+  text-align: justify;
+  text-indent: min(1.35em, 5cqi);
+  hyphens: auto;
+}
+
+.document > p:first-of-type,
+.document h1 + p,
+.document h2 + p,
+.document h3 + p,
+.document figure + p,
+.document .formula-coordinate-lane + p:not(:has(+ .formula-coordinate-lane)),
+.source-theme > p:first-child,
+.source-theme h1 + p,
+.source-theme h2 + p,
+.source-theme h3 + p,
+.source-theme figure + p,
+.source-theme:has(> figure:last-child) + p,
+.source-theme:has(> .formula-coordinate-lane:last-child)
+  + p:not(:has(+ .formula-coordinate-lane)) {
+  text-indent: 0;
+}
+
+blockquote {
+  box-sizing: border-box;
+  margin-block: 1rem;
+  padding-inline: clamp(1rem, 4vw, 2.25rem);
+  text-align: justify;
+}
+
+.document :where(p, blockquote, ul, ol, h1, h2, h3, h4, h5, h6, .footnote) {
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: var(--reader-prose-measure);
+  margin-inline: auto;
+}
+
+.document :where(p, blockquote, li, figcaption, h1, h2, h3, h4, h5, h6, .footnote) {
+  overflow-wrap: anywhere;
+}
+
+.sentence {
+  cursor: pointer;
+}
+
+.sentence:focus,
+.sentence:hover,
+.sentence.is-selected {
+  background: #fff0a8;
+  outline: 0;
+}
+
+.source-link,
+.relation-links {
+  font: 0.75rem/1.3 system-ui, sans-serif;
+  margin-left: 0.4em;
+}
+
+.static-export .source-link {
+  display: none;
+}
+
+.small-caps {
+  font-variant: small-caps;
+}
+
+.small-cap-rest {
+  font-size: 0.72em;
+  letter-spacing: 0.04em;
+}
+
+.rule-below {
+  display: inline-block;
+  padding: 0 0.45em 0.05em;
+  margin: 0 -0.45em;
+  border-bottom: 0.08em solid currentcolor;
+}
+
+.formula {
+  container-type: inline-size;
+  container-name: formula;
+  overflow: auto;
+  margin: 0.35rem 0;
+  text-align: center;
+}
+
+.formula-coordinate-lane {
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: var(--reader-prose-measure);
+  margin-inline: auto;
+}
+
+.formula-spatial {
+  overscroll-behavior-inline: contain;
+  scrollbar-color: #6f6a61 #eee9de;
+  scrollbar-width: thin;
+}
+
+.formula-spatial:focus-visible {
+  outline: 0.12rem solid #6f5a32;
+  outline-offset: 0.2rem;
+}
+
+.formula code {
+  display: block;
+  max-width: 100%;
+  white-space: pre-wrap;
+  text-align: left;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1;
+}
+
+.formula .rule-below {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+}
+
+.formula code.formula-layout-positioned {
+  overflow: visible;
+  white-space: normal;
+}
+
+.formula code.formula-layout-with-annotation {
+  display: grid;
+}
+
+.formula-layout-spatial-layer,
+.formula-layout-annotation {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+.formula-layout-row {
+  position: relative;
+  display: block;
+  height: 1em;
+}
+
+.formula-layout-row.is-ruled {
+  border-bottom: 0.08em solid currentcolor;
+}
+
+.formula-layout-rule {
+  position: absolute;
+  bottom: 0;
+  border-bottom: 0.08em solid currentcolor;
+}
+
+.formula-layout-token {
+  position: absolute;
+  top: 0;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.formula-layout-annotation {
+  display: block;
+  box-sizing: border-box;
+  min-height: 1em;
+  padding-inline-start: clamp(0.5em, 1.5cqi, 0.8em);
+  align-self: start;
+  line-height: 1.15;
+  white-space: normal;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.formula-layout-hanging-row {
+  height: auto;
+  min-height: 1em;
+  inline-size: min(100cqi, var(--reader-prose-measure));
+  max-inline-size: min(100cqi, var(--reader-prose-measure));
+  text-align: left;
+}
+
+.formula-layout-marker {
+  position: absolute;
+  top: 0;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.formula-layout-flow-body {
+  display: block;
+  line-height: 1.15;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+figure {
+  margin: 1.5rem auto;
+  text-align: center;
+}
+
+figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+
+.document [class*="source-width-"] {
+  box-sizing: border-box;
+  inline-size: var(--source-inline-size, auto);
+  max-inline-size: 100%;
+  margin-inline: auto;
+}
+
+.document [class*="source-left-"] {
+  margin-inline-start: var(--source-inline-start, auto);
+  margin-inline-end: auto;
+}
+
+.document [class*="source-gap-"] {
+  margin-block-start: clamp(0.25rem, var(--source-block-gap, 0rem), var(--source-gap-cap));
+}
+
+.source-theme {
+  padding-block: 0.01px;
+}
+
+.marginalia {
+  display: none;
+}
+
+.source-viewer {
+  position: sticky;
+  top: 1rem;
+  align-self: start;
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+  padding: 1rem;
+  background: #242424;
+  color: white;
+  font-family: system-ui, sans-serif;
+}
+
+.source-canvas {
+  position: relative;
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
+.source-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.source-controls button {
+  padding: 0.3rem 0.55rem;
+}
+
+.source-page-label,
+#source-page-label,
+#source-zoom-label {
+  min-width: 4rem;
+  text-align: center;
+}
+
+.source-scroll {
+  max-height: 46vh;
+  overflow: auto;
+}
+
+.source-canvas img {
+  display: block;
+  width: 100%;
+  min-height: 10rem;
+  object-fit: contain;
+  background: #ddd;
+}
+
+.source-canvas canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #ddd;
+}
+
+.source-overlay {
+  position: absolute;
+  border: 2px solid #ffbf00;
+  background: rgb(255 191 0 / 22%);
+  pointer-events: none;
+}
+
+.source-overlays {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.source-overlay-shape {
+  fill: rgb(255 191 0 / 22%);
+  stroke: #ffbf00;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.source-overlay-shape.is-active-region {
+  fill: rgb(255 106 0 / 28%);
+  stroke: #ff6a00;
+  stroke-width: 3;
+}
+
+.review-editor {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #666;
+  font: 0.85rem/1.45 system-ui, sans-serif;
+}
+
+.review-editor h2 {
+  margin: 0 0 0.7rem;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.review-editor label,
+.review-editor textarea,
+.review-editor input,
+.review-editor select,
+.review-editor button {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.review-editor textarea,
+.review-editor input,
+.review-editor select {
+  margin: 0.2rem 0 0.65rem;
+  padding: 0.45rem;
+  border: 1px solid #888;
+  border-radius: 0.2rem;
+  background: #fff;
+  color: #111;
+}
+
+.review-editor textarea {
+  resize: vertical;
+  font: 0.9rem/1.4 ui-monospace, monospace;
+}
+
+.review-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(6rem, 1fr);
+  gap: 0.5rem;
+  margin: 0 0 0.7rem;
+}
+
+.review-summary div {
+  min-width: 0;
+}
+
+.review-summary dt {
+  color: #bbb;
+}
+
+.review-summary dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.review-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin: 0.7rem 0;
+}
+
+.review-editor button {
+  margin: 0.4rem 0;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid #999;
+  border-radius: 0.2rem;
+  cursor: pointer;
+}
+
+.review-editor button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.review-evidence {
+  margin: 0.5rem 0;
+  padding-left: 1.2rem;
+}
+
+.review-evidence li {
+  margin-bottom: 0.45rem;
+  overflow-wrap: anywhere;
+}
+
+.review-message {
+  display: block;
+  min-height: 1.4em;
+  margin-top: 0.6rem;
+  color: #ffe082;
+}
+
+.citation {
+  display: inline;
+  font-style: normal;
+}
+
+.footnote {
+  border-top: 1px solid #aaa;
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+}
+
+.reconstructed-toc {
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: var(--reader-prose-measure);
+  margin: clamp(2rem, 8cqi, 5rem) auto 0;
+}
+
+.reconstructed-toc .toc-list {
+  display: grid;
+  gap: 0.6em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reconstructed-toc .toc-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  align-items: baseline;
+  column-gap: clamp(0.75em, 3cqi, 2em);
+}
+
+.reconstructed-toc .toc-entry {
+  display: flex;
+  min-inline-size: 0;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: clamp(0.6em, 2.5cqi, 1.5em);
+}
+
+.reconstructed-toc .toc-fragment {
+  overflow-wrap: anywhere;
+}
+
+.reconstructed-toc .toc-page {
+  min-inline-size: 2.5ch;
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-scroll {
+  max-inline-size: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+
+td,
+th {
+  border: 1px solid #999;
+  padding: 0.35rem;
+}
+
+@media (max-width: 900px) {
+  .reader-shell {
+    display: block;
+  }
+
+  .source-viewer {
+    position: static;
+    max-height: none;
+    margin-top: 2rem;
+  }
+
+}
+
+@media (max-width: 34rem) {
+  .publication-navigation {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .publication-navigation .publication-contents {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .publication-navigation .publication-previous {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .publication-navigation .publication-next {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+@container formula (max-width: 24rem) {
+  .formula-layout-with-annotation > .formula-layout-spatial-layer {
+    grid-area: 1 / 1;
+  }
+
+  .formula-layout-with-annotation > .formula-layout-annotation {
+    grid-area: 2 / 1;
+    inline-size: 100cqi;
+    max-inline-size: 100cqi;
+    margin-left: 0;
+    margin-block-start: 0.35em;
+    padding-inline-start: 1.4em;
+  }
+}
+
+@container document (max-width: 42rem) {
+  .document [class*="source-width-"]:not(.formula-preserve-indent) {
+    --source-inline-size: 100%;
+  }
+
+  .document [class*="source-left-"]:not(.formula-preserve-indent) {
+    --source-inline-start: 0%;
+  }
+
+  .document [class*="source-gap-"] {
+    --source-gap-cap: 4rem;
+  }
+
+  .document blockquote {
+    padding-inline: 1rem;
+  }
+
+  .document :where(p, blockquote) {
+    text-align: start;
+  }
+}
+
+@container document (max-width: 30rem) {
+  .reconstructed-toc .toc-entry {
+    display: block;
+  }
+
+  .reconstructed-toc .toc-fragment {
+    margin-inline-end: 0.35em;
+  }
+}
+.source-gap-9{--source-block-gap:2.25%}.source-gap-10{--source-block-gap:2.5%}.source-gap-12{--source-block-gap:3%}.source-gap-15{--source-block-gap:3.75%}.source-gap-16{--source-block-gap:4%}.source-gap-17{--source-block-gap:4.25%}.source-gap-28{--source-block-gap:7%}.source-gap-29{--source-block-gap:7.25%}.source-gap-49{--source-block-gap:12.25%}.source-gap-84{--source-block-gap:21%}.source-gap-152{--source-block-gap:38%}.source-width-99{--source-inline-size:99%}.zh{margin:.15rem auto .9rem;font-size:1.05rem;line-height:1.85;font-family:"Noto Serif CJK SC","Source Han Serif SC","Songti SC",Georgia,serif}.zh sup{font-weight:600}h1+.zh,h2+.zh,h3+.zh,h4+.zh{margin-top:-.3rem;font-weight:600}blockquote+.zh,li .zh{padding-left:1.5rem}.static-page .static-export .document p,.static-page .static-export .document li,.static-page .static-export .document blockquote{color:#6d6a63}.static-page .static-export .document .zh{color:#1f1e1c}@media(prefers-color-scheme:dark){.static-page .static-export .document p,.static-page .static-export .document li,.static-page .static-export .document blockquote{color:#8f8c84}.static-page .static-export .document .zh{color:#d8d5cd}}.lang-switch{position:sticky;top:0;display:flex;gap:1.25rem;justify-content:center;padding:.55rem 0;background:inherit;z-index:5;font-size:.85rem}.lang-switch label{cursor:pointer;opacity:.55}input.lang{position:absolute;left:-9999px}#lang-en:checked~.lang-switch label[for=lang-en],#lang-bi:checked~.lang-switch label[for=lang-bi],#lang-zh:checked~.lang-switch label[for=lang-zh]{opacity:1;font-weight:700;text-decoration:underline;text-underline-offset:.35em}#lang-en:checked~main .document .zh{display:none}#lang-en:checked~main .document aside.footnote .zh{display:block}#lang-zh:checked~main .document p[data-object-id],#lang-zh:checked~main .document h1[data-object-id],#lang-zh:checked~main .document h2[data-object-id],#lang-zh:checked~main .document h3[data-object-id],#lang-zh:checked~main .document h4[data-object-id],#lang-zh:checked~main .document blockquote[data-object-id],#lang-zh:checked~main .document li[data-object-id]>span{display:none}</style></head><body class="static-page"><input class="lang" type="radio" name="lang" id="lang-en"><input class="lang" type="radio" name="lang" id="lang-bi" checked><input class="lang" type="radio" name="lang" id="lang-zh"><nav class="lang-switch"><label for="lang-en">English</label><label for="lang-bi">双语</label><label for="lang-zh">中文</label></nav><main class="reader-shell static-export"><nav class="publication-navigation publication-navigation-top" aria-label="Book navigation"><a class="publication-previous" rel="prev" href="09-chapter-06.html">← Chapter 6 — Keeping an Open Mind</a><a class="publication-contents" href="index.html">Contents</a><a class="publication-next" rel="next" href="11-chapter-08.html">Chapter 8 — Analysis of Competing Hypotheses →</a></nav><article class="document" data-document-id="doc_019f6fff-83de-7594-a565-29f865fea8ef"><section id="obj_019f7001-5434-714a-a702-0c2e732c7b4f" data-object-id="obj_019f7001-5434-714a-a702-0c2e732c7b4f" data-object-type="section" data-page="112" data-anchor-id="anchor_019f7001-5434-714a-a702-0c2e732c7b50" data-anchor-ids="anchor_019f7001-5434-714a-a702-0c2e732c7b50" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.3430,0.1499,0.6864,0.2120"><h1 id="obj_019f7001-5435-7348-ab61-afc0dae96c01" data-object-id="obj_019f7001-5435-7348-ab61-afc0dae96c01" data-object-type="heading" data-page="112" data-anchor-id="anchor_019f7001-5435-7348-ab61-afc0dae96c02" data-anchor-ids="anchor_019f7001-5435-7348-ab61-afc0dae96c02" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.3430,0.1499,0.6864,0.2120"><strong>Chapter 7 Structuring Analytical Problems</strong></h1><div class="zh" lang="zh-CN">第7章：构建分析问题的结构</div><p class="source-gap-28" id="obj_019f7001-5436-7cdf-bd8b-0850e1737f5f" data-object-id="obj_019f7001-5436-7cdf-bd8b-0850e1737f5f" data-object-type="paragraph" data-page="112" data-anchor-id="anchor_019f7001-5436-7cdf-bd8b-0850e1737f60" data-anchor-ids="anchor_019f7001-5436-7cdf-bd8b-0850e1737f60" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.2420,0.7916,0.2974" data-source-gap="0.0707"><span tabindex="0" class="sentence" id="obj_019f7001-5436-7cdf-bd8b-0850e1737f61" data-object-id="obj_019f7001-5436-7cdf-bd8b-0850e1737f61" data-object-type="sentence" data-page="112" data-anchor-id="anchor_019f7001-5437-788e-85f2-20e5ff0c69c4" data-anchor-ids="anchor_019f7001-5437-788e-85f2-20e5ff0c69c4" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.2420,0.7916,0.2974"><em>This chapter discusses various structures for decomposing and externalizing complex analytical problems when we cannot keep all the relevant factors in the forefront of our consciousness at the same time.</em></span></p><div class="zh" lang="zh-CN">当我们无法同时把所有相关因素都保持在意识的最前沿时，就需要借助本章讨论的各种结构来分解和外化复杂的分析问题。</div><p id="obj_019f7001-5437-788e-85f2-20e5ff0c69c5" data-object-id="obj_019f7001-5437-788e-85f2-20e5ff0c69c5" data-object-type="paragraph" data-page="112" data-anchor-id="anchor_019f7001-5437-788e-85f2-20e5ff0c69c6" data-anchor-ids="anchor_019f7001-5437-788e-85f2-20e5ff0c69c6" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.2966,0.7917,0.3520"><span tabindex="0" class="sentence" id="obj_019f7001-5438-7c94-8756-8f213dea3ad4" data-object-id="obj_019f7001-5438-7c94-8756-8f213dea3ad4" data-object-type="sentence" data-page="112" data-anchor-id="anchor_019f7001-5438-7c94-8756-8f213dea3ad5" data-anchor-ids="anchor_019f7001-5438-7c94-8756-8f213dea3ad5" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.2966,0.7917,0.3520"><em>Decomposition means breaking a problem down into its component parts. </em></span><span tabindex="0" class="sentence" id="obj_019f7001-5438-7c94-8756-8f213dea3ad6" data-object-id="obj_019f7001-5438-7c94-8756-8f213dea3ad6" data-object-type="sentence" data-page="112" data-anchor-id="anchor_019f7001-5439-7280-b08e-3e91b2ec5078" data-anchor-ids="anchor_019f7001-5439-7280-b08e-3e91b2ec5078" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.2966,0.7917,0.3520"><em>Externalization means getting the problem out of our heads and into some visible form that we can work with.</em></span></p><div class="zh" lang="zh-CN">分解意味着把一个问题分解成它的组成部分。外化意味着把问题从我们的头脑中拿出来，转化为某种我们可以处理的可见形式。</div><p class="source-gap-9" id="obj_019f7001-5439-7280-b08e-3e91b2ec5079" data-object-id="obj_019f7001-5439-7280-b08e-3e91b2ec5079" data-object-type="paragraph" data-page="112" data-anchor-id="anchor_019f7001-5439-7280-b08e-3e91b2ec507a" data-anchor-ids="anchor_019f7001-5439-7280-b08e-3e91b2ec507a" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.3651,0.3612,0.6643,0.3797" data-source-gap="0.0217"><span tabindex="0" class="sentence" id="obj_019f7001-5439-7280-b08e-3e91b2ec507b" data-object-id="obj_019f7001-5439-7280-b08e-3e91b2ec507b" data-object-type="sentence" data-page="112" data-anchor-id="anchor_019f7001-543a-7b38-a24c-c28d6bb30272" data-anchor-ids="anchor_019f7001-543a-7b38-a24c-c28d6bb30272" data-page-indices="112" data-pages="113" data-confidence="0.7500" data-source-bbox="0.3651,0.3612,0.6643,0.3797">* * * * * * * * * * * * * * * * * * *</span></p><p class="source-gap-12" id="obj_019f7001-543a-7b38-a24c-c28d6bb30273" data-object-id="obj_019f7001-543a-7b38-a24c-c28d6bb30273" data-object-type="paragraph" data-page="112" data-anchor-id="anchor_019f7001-543a-7b38-a24c-c28d6bb30274" data-anchor-ids="anchor_019f7001-543a-7b38-a24c-c28d6bb30274" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.3920,0.7917,0.5204" data-source-gap="0.0290"><span tabindex="0" class="sentence" id="obj_019f7001-543b-773e-b6ff-7fc876c41c7e" data-object-id="obj_019f7001-543b-773e-b6ff-7fc876c41c7e" data-object-type="sentence" data-page="112" data-anchor-id="anchor_019f7001-543b-773e-b6ff-7fc876c41c7f" data-anchor-ids="anchor_019f7001-543b-773e-b6ff-7fc876c41c7f" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.3920,0.7917,0.5204">The discussion of working memory in Chapter 3 indicated that “The Magic Number Seven—Plus or Minus Two”<sup id="ref-80"><a href="#note-80"><strong>80</strong></a></sup> is the number of things most people can keep in working memory at one time. </span><span tabindex="0" class="sentence" id="obj_019f7001-543b-773e-b6ff-7fc876c41c80" data-object-id="obj_019f7001-543b-773e-b6ff-7fc876c41c80" data-object-type="sentence" data-page="112" data-anchor-id="anchor_019f7001-543b-773e-b6ff-7fc876c41c81" data-anchor-ids="anchor_019f7001-543b-773e-b6ff-7fc876c41c81" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.3920,0.7917,0.5204">To experience firsthand this limitation on working memory while doing a mental task, try multiplying in your head any pair of two-digit numbers- for example, 46 times 78. </span><span tabindex="0" class="sentence" id="obj_019f7001-543c-7b28-b80b-162ace024bfa" data-object-id="obj_019f7001-543c-7b28-b80b-162ace024bfa" data-object-type="sentence" data-page="112" data-anchor-id="anchor_019f7001-543c-7b28-b80b-162ace024bfb" data-anchor-ids="anchor_019f7001-543c-7b28-b80b-162ace024bfb" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.3920,0.7917,0.5204">On paper, this is a simple problem, but most people cannot keep track of that many numbers in their head.</span></p><div class="zh" lang="zh-CN">第3章关于工作记忆的讨论指出，“神奇数字七加或减二” <sup><a href="#note-80">80</a></sup> 是大多数人一次能保持在工作记忆中的事物数量。在完成一项思维任务时，要亲身体验工作记忆的这种限度，试着在脑海中把任意一对两位数相乘——例如46乘以78。在纸上，这是个简单的问题，但大多数人无法在头脑中记住那么多数字。</div><p id="obj_019f7001-543c-7b28-b80b-162ace024bfc" data-object-id="obj_019f7001-543c-7b28-b80b-162ace024bfc" data-object-type="paragraph" data-page="112" data-anchor-id="anchor_019f7001-543d-7867-8e6e-3c426a5cd424" data-anchor-ids="anchor_019f7001-543d-7867-8e6e-3c426a5cd424" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.5193,0.7917,0.7204"><span tabindex="0" class="sentence" id="obj_019f7001-543d-7867-8e6e-3c426a5cd425" data-object-id="obj_019f7001-543d-7867-8e6e-3c426a5cd425" data-object-type="sentence" data-page="112" data-anchor-id="anchor_019f7001-543d-7867-8e6e-3c426a5cd426" data-anchor-ids="anchor_019f7001-543d-7867-8e6e-3c426a5cd426" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.5193,0.7917,0.7204">The limited capacity of working memory is the source of many problems in doing intelligence analysis. </span><span tabindex="0" class="sentence" id="obj_019f7001-543d-7867-8e6e-3c426a5cd427" data-object-id="obj_019f7001-543d-7867-8e6e-3c426a5cd427" data-object-type="sentence" data-page="112" data-anchor-id="anchor_019f7001-543e-7f7f-9111-d579ef22965a" data-anchor-ids="anchor_019f7001-543e-7f7f-9111-d579ef22965a" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.5193,0.7917,0.7204">It is useful to consider just how complicated analysis can get, and how complexity might outstrip your working memory and impede your ability to make accurate judgments. </span><span tabindex="0" class="sentence" id="obj_019f7001-543e-7f7f-9111-d579ef22965b" data-object-id="obj_019f7001-543e-7f7f-9111-d579ef22965b" data-object-type="sentence" data-page="112" data-anchor-id="anchor_019f7001-543e-7f7f-9111-d579ef22965c" data-anchor-ids="anchor_019f7001-543e-7f7f-9111-d579ef22965c" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.5193,0.7917,0.7204">Figure 10 illustrates how complexity increases geometrically as the number of variables in an analytical problem increases. </span><span tabindex="0" class="sentence" id="obj_019f7001-543e-7f7f-9111-d579ef22965d" data-object-id="obj_019f7001-543e-7f7f-9111-d579ef22965d" data-object-type="sentence" data-page="112" data-anchor-id="anchor_019f7001-543f-718d-9390-d1f7d36db4f8" data-anchor-ids="anchor_019f7001-543f-718d-9390-d1f7d36db4f8" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.5193,0.7917,0.7204">The four-sided square shows that when a problem has just four variables, there are six possible interrelationships between those variables. </span><span tabindex="0" class="sentence" id="obj_019f7001-543f-718d-9390-d1f7d36db4f9" data-object-id="obj_019f7001-543f-718d-9390-d1f7d36db4f9" data-object-type="sentence" data-page="112" data-anchor-id="anchor_019f7001-543f-718d-9390-d1f7d36db4fa" data-anchor-ids="anchor_019f7001-543f-718d-9390-d1f7d36db4fa" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.5193,0.7917,0.7204">With the pentagon, the five variables have 10 possible interrelationships. </span><span tabindex="0" class="sentence" id="obj_019f7001-5440-771a-84fd-c0e5abf1c4ac" data-object-id="obj_019f7001-5440-771a-84fd-c0e5abf1c4ac" data-object-type="sentence" data-page="112" data-anchor-id="anchor_019f7001-5440-771a-84fd-c0e5abf1c4ad" data-anchor-ids="anchor_019f7001-5440-771a-84fd-c0e5abf1c4ad" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.5193,0.7917,0.7204">With six and eight variables, respectively, there are 15 and 28 possible interrelationships between variables.</span></p><div class="zh" lang="zh-CN">工作记忆的有限容量是情报分析中许多问题的根源。不妨思考一下分析会变得多么复杂，以及复杂性可能如何超出你的工作记忆并妨碍你做出准确判断的能力。图10说明了复杂性如何随着分析问题中变量数量的增加而以几何方式增长。四边形显示，当一个问题只有四个变量时，这些变量之间有六种可能的相互关系。五边形有五个变量，就有10种可能的相互关系。分别有六个和八个变量时，变量之间就有15种和28种可能的相互关系。<br>变量之间可能的关系数量随着变量数量的增加而以几何方式增长。</div><p id="obj_019f7001-5440-771a-84fd-c0e5abf1c4ae" data-object-id="obj_019f7001-5440-771a-84fd-c0e5abf1c4ae" data-object-type="paragraph" data-page="112" data-anchor-id="anchor_019f7001-5441-785e-8ba3-8c53c81b886f" data-anchor-ids="anchor_019f7001-5441-785e-8ba3-8c53c81b886f" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.7193,0.7868,0.7568"><span tabindex="0" class="sentence" id="obj_019f7001-5441-785e-8ba3-8c53c81b8870" data-object-id="obj_019f7001-5441-785e-8ba3-8c53c81b8870" data-object-type="sentence" data-page="112" data-anchor-id="anchor_019f7001-5441-785e-8ba3-8c53c81b8871" data-anchor-ids="anchor_019f7001-5441-785e-8ba3-8c53c81b8871" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.7193,0.7868,0.7568">The number of possible relationships between variables grows geometrically as the number of variables increases.</span></p><div class="zh" lang="zh-CN">在分析中应对复杂性有两种基本工具——分解与外化。</div><p id="obj_019f7001-5442-756b-af72-ad13034fc85b" data-object-id="obj_019f7001-5442-756b-af72-ad13034fc85b" data-object-type="paragraph" data-page="112" data-anchor-id="anchor_019f7001-5442-756b-af72-ad13034fc85c" data-anchor-ids="anchor_019f7001-5442-756b-af72-ad13034fc85c,anchor_019f7001-5442-756b-af72-ad13034fc85d" data-page-indices="112,113" data-pages="113,114" data-confidence="0.9000" data-source-bbox="0.2426,0.7557,0.7868,0.7931"><span tabindex="0" class="sentence" id="obj_019f7001-5443-7fa3-a0ff-1a586280c529" data-object-id="obj_019f7001-5443-7fa3-a0ff-1a586280c529" data-object-type="sentence" data-page="112" data-anchor-id="anchor_019f7001-5443-7fa3-a0ff-1a586280c52a" data-anchor-ids="anchor_019f7001-5443-7fa3-a0ff-1a586280c52a,anchor_019f7001-5443-7fa3-a0ff-1a586280c52b" data-page-indices="112,113" data-pages="113,114" data-confidence="0.9000" data-source-bbox="0.2426,0.7557,0.7868,0.7931">There are two basic tools for dealing with complexity in analysis— decomposition and externalization. </span><span tabindex="0" class="sentence" id="obj_019f7001-5443-7fa3-a0ff-1a586280c52c" data-object-id="obj_019f7001-5443-7fa3-a0ff-1a586280c52c" data-object-type="sentence" data-page="113" data-anchor-id="anchor_019f7001-5444-75e9-8c79-a74f617649d9" data-anchor-ids="anchor_019f7001-5444-75e9-8c79-a74f617649d9" data-page-indices="113" data-pages="114" data-confidence="0.9000" data-source-bbox="0.2132,0.5721,0.7623,0.6277">Decomposition means breaking a problem down into its component parts. </span><span tabindex="0" class="sentence" id="obj_019f7001-5444-75e9-8c79-a74f617649da" data-object-id="obj_019f7001-5444-75e9-8c79-a74f617649da" data-object-type="sentence" data-page="113" data-anchor-id="anchor_019f7001-5444-75e9-8c79-a74f617649db" data-anchor-ids="anchor_019f7001-5444-75e9-8c79-a74f617649db" data-page-indices="113" data-pages="114" data-confidence="0.9000" data-source-bbox="0.2132,0.5721,0.7623,0.6277">That is, indeed, the essence of analysis. </span><span tabindex="0" class="sentence" id="obj_019f7001-5444-75e9-8c79-a74f617649dc" data-object-id="obj_019f7001-5444-75e9-8c79-a74f617649dc" data-object-type="sentence" data-page="113" data-anchor-id="anchor_019f7001-5445-7393-b883-642ed3152905" data-anchor-ids="anchor_019f7001-5445-7393-b883-642ed3152905" data-page-indices="113" data-pages="114" data-confidence="0.9000" data-source-bbox="0.2132,0.5721,0.7623,0.6277">Webster’s Dictionary defines analysis as division of a complex whole into its parts or elements.<sup id="ref-81"><a href="#note-81"><strong>81</strong></a></sup></span></p><div class="zh" lang="zh-CN">分解意味着把一个问题分解成它的组成部分。这确实就是分析的本质。韦氏词典把分析定义为将一个复杂的整体划分为其部分或要素。 <sup><a href="#note-81">81</a></sup></div><figure class="source-width-99" id="obj_019f7001-5446-7db1-8e48-a8a41f88b4cb" data-object-id="obj_019f7001-5446-7db1-8e48-a8a41f88b4cb" data-object-type="figure" data-page="113" data-anchor-id="anchor_019f7001-5447-73a3-b95e-85776a6f03a3" data-anchor-ids="anchor_019f7001-5447-73a3-b95e-85776a6f03a3" data-page-indices="113" data-pages="114" data-confidence="0.9000" data-source-bbox="0.2132,0.1534,0.7564,0.5750" data-source-width="0.9892"><img src="../assets/figures/obj_019f7001-5446-7db1-8e48-a8a41f88b4cb.png" alt=""></figure><p class="source-gap-49" id="obj_019f7001-5449-7404-a33f-868223e42fa1" data-object-id="obj_019f7001-5449-7404-a33f-868223e42fa1" data-object-type="paragraph" data-page="113" data-anchor-id="anchor_019f7001-5449-7404-a33f-868223e42fa2" data-anchor-ids="anchor_019f7001-5449-7404-a33f-868223e42fa2" data-page-indices="113" data-pages="114" data-confidence="0.9000" data-source-bbox="0.2132,0.6266,0.7623,0.7004" data-source-gap="0.1217"><span tabindex="0" class="sentence" id="obj_019f7001-544a-77d1-9959-39dc9165872c" data-object-id="obj_019f7001-544a-77d1-9959-39dc9165872c" data-object-type="sentence" data-page="113" data-anchor-id="anchor_019f7001-544a-77d1-9959-39dc9165872d" data-anchor-ids="anchor_019f7001-544a-77d1-9959-39dc9165872d" data-page-indices="113" data-pages="114" data-confidence="0.9000" data-source-bbox="0.2132,0.6266,0.7623,0.7004">The spirit of decision analysis is to divide and conquer: Decompose a complex problem into simpler problems, get one’s thinking straight in these simpler problems, paste these analyses together with a logical glue. </span><span tabindex="0" class="sentence" id="obj_019f7001-544a-77d1-9959-39dc9165872e" data-object-id="obj_019f7001-544a-77d1-9959-39dc9165872e" data-object-type="sentence" data-page="113" data-anchor-id="anchor_019f7001-544b-78b3-88c1-0b936fca06de" data-anchor-ids="anchor_019f7001-544b-78b3-88c1-0b936fca06de" data-page-indices="113" data-pages="114" data-confidence="0.9000" data-source-bbox="0.2132,0.6266,0.7623,0.7004">. </span><span tabindex="0" class="sentence" id="obj_019f7001-544b-78b3-88c1-0b936fca06df" data-object-id="obj_019f7001-544b-78b3-88c1-0b936fca06df" data-object-type="sentence" data-page="113" data-anchor-id="anchor_019f7001-544b-78b3-88c1-0b936fca06e0" data-anchor-ids="anchor_019f7001-544b-78b3-88c1-0b936fca06e0" data-page-indices="113" data-pages="114" data-confidence="0.9000" data-source-bbox="0.2132,0.6266,0.7623,0.7004">.<sup id="ref-82"><a href="#note-82"><strong>82</strong></a></sup></span></p><div class="zh" lang="zh-CN">决策分析的精神在于分而治之：把一个复杂的问题分解成一些较简单的问题，把这些较简单的问题想清楚，再用逻辑的黏合剂把这些分析拼合到一起……<sup><a href="#note-82">82</a></sup></div><p id="obj_019f7001-544c-7ca8-b030-38c2ed16c246" data-object-id="obj_019f7001-544c-7ca8-b030-38c2ed16c246" data-object-type="paragraph" data-page="113" data-anchor-id="anchor_019f7001-544c-7ca8-b030-38c2ed16c247" data-anchor-ids="anchor_019f7001-544c-7ca8-b030-38c2ed16c247,anchor_019f7001-544c-7ca8-b030-38c2ed16c248" data-page-indices="113,114" data-pages="114,115" data-confidence="0.9000" data-source-bbox="0.2132,0.6994,0.7623,0.7913"><span tabindex="0" class="sentence" id="obj_019f7001-544c-7ca8-b030-38c2ed16c249" data-object-id="obj_019f7001-544c-7ca8-b030-38c2ed16c249" data-object-type="sentence" data-page="113" data-anchor-id="anchor_019f7001-544d-75a4-b89d-3265c648b521" data-anchor-ids="anchor_019f7001-544d-75a4-b89d-3265c648b521" data-page-indices="113" data-pages="114" data-confidence="0.9000" data-source-bbox="0.2132,0.6994,0.7623,0.7913">Externalization means getting the decomposed problem out of one’s head and down on paper or on a computer screen in some simplified form that shows the main variables, parameters, or elements of the problem and how they relate to each other. </span><span tabindex="0" class="sentence" id="obj_019f7001-544d-75a4-b89d-3265c648b522" data-object-id="obj_019f7001-544d-75a4-b89d-3265c648b522" data-object-type="sentence" data-page="113" data-anchor-id="anchor_019f7001-544d-75a4-b89d-3265c648b523" data-anchor-ids="anchor_019f7001-544d-75a4-b89d-3265c648b523,anchor_019f7001-544e-77a1-bdcc-7548406f6128" data-page-indices="113,114" data-pages="114,115" data-confidence="0.9000" data-source-bbox="0.2132,0.6994,0.7623,0.7913">Writing down the multiplication problem, 46 times 78, is a very simple example of externalizing an analytical problem. </span><span tabindex="0" class="sentence" id="obj_019f7001-544e-77a1-bdcc-7548406f6129" data-object-id="obj_019f7001-544e-77a1-bdcc-7548406f6129" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-544e-77a1-bdcc-7548406f612a" data-anchor-ids="anchor_019f7001-544e-77a1-bdcc-7548406f612a" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.2426,0.1505,0.7916,0.2061">When it is down on paper, one can easily manipulate one part of the problem at a time and often be more accurate than when trying to multiply the numbers in one’s head.</span></p><div class="zh" lang="zh-CN">外化意味着把已分解的问题从头脑中拿出来，落到纸上或电脑屏幕上，以某种简化的形式呈现出问题的主要变量、参数或要素，以及它们彼此之间如何关联。把乘法问题46乘以78写下来，就是外化一个分析问题的极简单的例子。当它落到纸上，人们就能轻松地一次处理问题的一部分，而且往往比试图在头脑中把这些数字相乘时更准确。</div><p id="obj_019f7001-5450-7ee5-9640-096cbdc50c8d" data-object-id="obj_019f7001-5450-7ee5-9640-096cbdc50c8d" data-object-type="paragraph" data-page="114" data-anchor-id="anchor_019f7001-5450-7ee5-9640-096cbdc50c8e" data-anchor-ids="anchor_019f7001-5450-7ee5-9640-096cbdc50c8e" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.2426,0.2050,0.7916,0.2607"><span tabindex="0" class="sentence" id="obj_019f7001-5451-7270-970f-f17c391dc516" data-object-id="obj_019f7001-5451-7270-970f-f17c391dc516" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-5451-7270-970f-f17c391dc517" data-anchor-ids="anchor_019f7001-5451-7270-970f-f17c391dc517" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.2426,0.2050,0.7916,0.2607">I call this drawing a picture of your problem. </span><span tabindex="0" class="sentence" id="obj_019f7001-5451-7270-970f-f17c391dc518" data-object-id="obj_019f7001-5451-7270-970f-f17c391dc518" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-5451-7270-970f-f17c391dc519" data-anchor-ids="anchor_019f7001-5451-7270-970f-f17c391dc519" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.2426,0.2050,0.7916,0.2607">Others call it making a model of your problem. </span><span tabindex="0" class="sentence" id="obj_019f7001-5452-73a8-b412-6e9b210af698" data-object-id="obj_019f7001-5452-73a8-b412-6e9b210af698" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-5452-73a8-b412-6e9b210af699" data-anchor-ids="anchor_019f7001-5452-73a8-b412-6e9b210af699" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.2426,0.2050,0.7916,0.2607">It can be as simple as just making lists pro and con.</span></p><div class="zh" lang="zh-CN">我把这称为“给你的问题画一幅图”。别人管这叫“为你的问题建一个模型”。它可以简单到只是列出正反两方的列表。</div><p id="obj_019f7001-5452-73a8-b412-6e9b210af69a" data-object-id="obj_019f7001-5452-73a8-b412-6e9b210af69a" data-object-type="paragraph" data-page="114" data-anchor-id="anchor_019f7001-5453-79a4-bc46-7bdf98704ae7" data-anchor-ids="anchor_019f7001-5453-79a4-bc46-7bdf98704ae7" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.2426,0.2596,0.7916,0.3516"><span tabindex="0" class="sentence" id="obj_019f7001-5453-79a4-bc46-7bdf98704ae8" data-object-id="obj_019f7001-5453-79a4-bc46-7bdf98704ae8" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-5453-79a4-bc46-7bdf98704ae9" data-anchor-ids="anchor_019f7001-5453-79a4-bc46-7bdf98704ae9" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.2426,0.2596,0.7916,0.3516">This recommendation to compensate for limitations of working memory by decomposing and externalizing analytical problems is not new. </span><span tabindex="0" class="sentence" id="obj_019f7001-5453-79a4-bc46-7bdf98704aea" data-object-id="obj_019f7001-5453-79a4-bc46-7bdf98704aea" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-5454-760f-97ce-79e28b74689f" data-anchor-ids="anchor_019f7001-5454-760f-97ce-79e28b74689f" data-page-indices="114" data-pages="115" data-confidence="0.7500" data-source-bbox="0.2426,0.2596,0.7916,0.3516">The following quote is from a letter Benjamin Franklin wrote in 1772 to the great British scientist Joseph Priestley, the discoverer of oxygen:</span></p><div class="zh" lang="zh-CN">这种通过分解和外化分析问题来弥补工作记忆限度的建议并不新鲜。下面这段引文出自本杰明·富兰克林1772年写给伟大的英国科学家、氧气的发现者约瑟夫·普里斯特利的一封信：</div><blockquote class="source-gap-15" id="obj_019f7001-5454-760f-97ce-79e28b7468a0" data-object-id="obj_019f7001-5454-760f-97ce-79e28b7468a0" data-object-type="blockquote" data-page="114" data-anchor-id="anchor_019f7001-5454-760f-97ce-79e28b7468a1" data-anchor-ids="anchor_019f7001-5454-760f-97ce-79e28b7468a1" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.3096,0.3672,0.7472,0.5348" data-source-gap="0.0368"><span tabindex="0" class="sentence" id="obj_019f7001-5455-7f87-818e-816f13614850" data-object-id="obj_019f7001-5455-7f87-818e-816f13614850" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-5455-7f87-818e-816f13614851" data-anchor-ids="anchor_019f7001-5455-7f87-818e-816f13614851" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.3096,0.3672,0.7472,0.5348">In the affair of so much importance to you, wherein you ask my advice, I cannot for want of sufficient premises, advise you what to determine, but if you please I will tell you how. </span><span tabindex="0" class="sentence" id="obj_019f7001-5455-7f87-818e-816f13614852" data-object-id="obj_019f7001-5455-7f87-818e-816f13614852" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-5456-71c6-9cfd-f7542c53f592" data-anchor-ids="anchor_019f7001-5456-71c6-9cfd-f7542c53f592" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.3096,0.3672,0.7472,0.5348">When those difficult cases occur, they are difficult, chiefly because while we have them under consideration, all the reasons pro and con are not present to the mind at the same time, but sometimes one set present themselves, and at other times another, the first being out of sight. </span><span tabindex="0" class="sentence" id="obj_019f7001-5456-71c6-9cfd-f7542c53f593" data-object-id="obj_019f7001-5456-71c6-9cfd-f7542c53f593" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-5456-71c6-9cfd-f7542c53f594" data-anchor-ids="anchor_019f7001-5456-71c6-9cfd-f7542c53f594" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.3096,0.3672,0.7472,0.5348">Hence the various purposes or inclinations that alternatively prevail, and the uncertainty that perplexes us.</span></blockquote><div class="zh" lang="zh-CN">在这件对你如此重要、你征询我意见的事情上，由于缺乏足够的前提，我无法建议你该如何决定，但如果你愿意，我可以告诉你该怎么做。当那些棘手的情形出现时，它们之所以棘手，主要是因为当我们把它们放在心上考虑时，正反两方的所有理由并不同时呈现于脑海，而是有时一组理由浮现，另一时另一组浮现，先前的那组则不见了。由此产生了各种交替占上风的目的或倾向，以及使我们困惑的不确定性。</div><blockquote id="obj_019f7001-5456-71c6-9cfd-f7542c53f595" data-object-id="obj_019f7001-5456-71c6-9cfd-f7542c53f595" data-object-type="blockquote" data-page="114" data-anchor-id="anchor_019f7001-5457-7cfc-aec0-842169f1d429" data-anchor-ids="anchor_019f7001-5457-7cfc-aec0-842169f1d429" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.3096,0.5339,0.7472,0.6348"><span tabindex="0" class="sentence" id="obj_019f7001-5457-7cfc-aec0-842169f1d42a" data-object-id="obj_019f7001-5457-7cfc-aec0-842169f1d42a" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-5457-7cfc-aec0-842169f1d42b" data-anchor-ids="anchor_019f7001-5457-7cfc-aec0-842169f1d42b" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.3096,0.5339,0.7472,0.6348">To get over this, my way is to divide half a sheet of paper by a line into two columns; writing over the one Pro, and over the other Con. </span><span tabindex="0" class="sentence" id="obj_019f7001-5458-7440-9d92-d81b6f4faa42" data-object-id="obj_019f7001-5458-7440-9d92-d81b6f4faa42" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-5458-7440-9d92-d81b6f4faa43" data-anchor-ids="anchor_019f7001-5458-7440-9d92-d81b6f4faa43" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.3096,0.5339,0.7472,0.6348">Then, during three or four days of consideration, I put down under the different heads short hints of the different motives, that at different times occur to me, for or against the measure.</span></blockquote><div class="zh" lang="zh-CN">为了克服这一点，我的办法是用一条线把半张纸分成两栏；一栏上方写“正”，另一栏上方写“反”。然后，在三四天的考虑期间，我在不同的标题下写下不同动机的简短提示，这些动机在不同的时候浮现于我脑海，或支持或反对该举措。</div><blockquote id="obj_019f7001-5458-7440-9d92-d81b6f4faa44" data-object-id="obj_019f7001-5458-7440-9d92-d81b6f4faa44" data-object-type="blockquote" data-page="114" data-anchor-id="anchor_019f7001-5459-7d10-8c42-8a5a328dde15" data-anchor-ids="anchor_019f7001-5459-7d10-8c42-8a5a328dde15" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.3096,0.6339,0.7472,0.7848"><span tabindex="0" class="sentence" id="obj_019f7001-5459-7d10-8c42-8a5a328dde16" data-object-id="obj_019f7001-5459-7d10-8c42-8a5a328dde16" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-5459-7d10-8c42-8a5a328dde17" data-anchor-ids="anchor_019f7001-5459-7d10-8c42-8a5a328dde17" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.3096,0.6339,0.7472,0.7848">When I have thus got them all together in one view, I endeavor to estimate their respective weights; and where I find two, one on each side, that seem equal, I strike them both out. </span><span tabindex="0" class="sentence" id="obj_019f7001-5459-7d10-8c42-8a5a328dde18" data-object-id="obj_019f7001-5459-7d10-8c42-8a5a328dde18" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-545a-7f86-bd51-4085a94bf642" data-anchor-ids="anchor_019f7001-545a-7f86-bd51-4085a94bf642" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.3096,0.6339,0.7472,0.7848">If I find a reason pro equal to some two reasons con, I strike out the three. </span><span tabindex="0" class="sentence" id="obj_019f7001-545a-7f86-bd51-4085a94bf643" data-object-id="obj_019f7001-545a-7f86-bd51-4085a94bf643" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-545a-7f86-bd51-4085a94bf644" data-anchor-ids="anchor_019f7001-545a-7f86-bd51-4085a94bf644" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.3096,0.6339,0.7472,0.7848">. </span><span tabindex="0" class="sentence" id="obj_019f7001-545b-78ef-9bbe-a7d5300fd038" data-object-id="obj_019f7001-545b-78ef-9bbe-a7d5300fd038" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-545b-78ef-9bbe-a7d5300fd039" data-anchor-ids="anchor_019f7001-545b-78ef-9bbe-a7d5300fd039" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.3096,0.6339,0.7472,0.7848">. </span><span tabindex="0" class="sentence" id="obj_019f7001-545b-78ef-9bbe-a7d5300fd03a" data-object-id="obj_019f7001-545b-78ef-9bbe-a7d5300fd03a" data-object-type="sentence" data-page="114" data-anchor-id="anchor_019f7001-545b-78ef-9bbe-a7d5300fd03b" data-anchor-ids="anchor_019f7001-545b-78ef-9bbe-a7d5300fd03b" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.3096,0.6339,0.7472,0.7848">and thus proceeding I find at length where the balance lies; and if, after a day or two of further consideration, nothing new that is of importance occurs on either side, I come to a determination accordingly.</span></blockquote><div class="zh" lang="zh-CN">当我这样把它们全都汇集到一处一览无余时，我便设法估量它们各自的分量；凡我发现两条理由、各占一方且看似相等的，我就把两条都划去。如果我发现一条正方理由等于某两条反方理由，我就把这三条划去……如此进行下去，我最终会发现天平倾向何方；如果在再考虑一两天之后，任何一方都没有出现重要的新情况，我就相应地做出决定。</div><blockquote id="obj_019f7001-545c-7cff-9462-c9f3f487febb" data-object-id="obj_019f7001-545c-7cff-9462-c9f3f487febb" data-object-type="blockquote" data-page="115" data-anchor-id="anchor_019f7001-545d-7250-9371-d57d1018b060" data-anchor-ids="anchor_019f7001-545d-7250-9371-d57d1018b060" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2802,0.1507,0.7177,0.2517"><span tabindex="0" class="sentence" id="obj_019f7001-545d-7250-9371-d57d1018b061" data-object-id="obj_019f7001-545d-7250-9371-d57d1018b061" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-545d-7250-9371-d57d1018b062" data-anchor-ids="anchor_019f7001-545d-7250-9371-d57d1018b062" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2802,0.1507,0.7177,0.2517">And, though the weight of reasons cannot be taken with the precision of algebraic quantities, yet when each is thus considered, separately and comparatively, and the whole lies before me, I think I can judge better, and am less liable to make a rash step, and in fact I have found great advantage from this kind of equation. </span><span tabindex="0" class="sentence" id="obj_019f7001-545e-7f40-b1de-59fb6271bb19" data-object-id="obj_019f7001-545e-7f40-b1de-59fb6271bb19" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-545e-7f40-b1de-59fb6271bb1a" data-anchor-ids="anchor_019f7001-545e-7f40-b1de-59fb6271bb1a" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2802,0.1507,0.7177,0.2517">. </span><span tabindex="0" class="sentence" id="obj_019f7001-545e-7f40-b1de-59fb6271bb1b" data-object-id="obj_019f7001-545e-7f40-b1de-59fb6271bb1b" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-545f-71db-bcdd-23843ed62836" data-anchor-ids="anchor_019f7001-545f-71db-bcdd-23843ed62836" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2802,0.1507,0.7177,0.2517">. </span><span tabindex="0" class="sentence" id="obj_019f7001-545f-71db-bcdd-23843ed62837" data-object-id="obj_019f7001-545f-71db-bcdd-23843ed62837" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-545f-71db-bcdd-23843ed62838" data-anchor-ids="anchor_019f7001-545f-71db-bcdd-23843ed62838" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2802,0.1507,0.7177,0.2517">. </span><span tabindex="0" class="sentence" id="obj_019f7001-545f-71db-bcdd-23843ed62839" data-object-id="obj_019f7001-545f-71db-bcdd-23843ed62839" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-5460-7361-8c7b-899d5fcba4a8" data-anchor-ids="anchor_019f7001-5460-7361-8c7b-899d5fcba4a8" data-page-indices="115" data-pages="116" data-confidence="0.7500" data-source-bbox="0.2802,0.1507,0.7177,0.2517"><sup id="ref-83"><a href="#note-83"><strong>83</strong></a></sup></span></blockquote><div class="zh" lang="zh-CN">而且，尽管理由的分量无法像代数量那样精确地衡量，但当每一条都这样分开地、比较地加以考量，整体都摆在我面前时，我认为我能判断得更好，也更不容易冒失行事；事实上我发现这种等式方法带来了极大的好处。…… <sup><a href="#note-83">83</a></sup></div><p class="source-gap-15" id="obj_019f7001-5460-7361-8c7b-899d5fcba4a9" data-object-id="obj_019f7001-5460-7361-8c7b-899d5fcba4a9" data-object-type="paragraph" data-page="115" data-anchor-id="anchor_019f7001-5460-7361-8c7b-899d5fcba4aa" data-anchor-ids="anchor_019f7001-5460-7361-8c7b-899d5fcba4aa" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.2681,0.7623,0.3965" data-source-gap="0.0387"><span tabindex="0" class="sentence" id="obj_019f7001-5461-7fc8-8444-9987afd0b400" data-object-id="obj_019f7001-5461-7fc8-8444-9987afd0b400" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-5461-7fc8-8444-9987afd0b401" data-anchor-ids="anchor_019f7001-5461-7fc8-8444-9987afd0b401" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.2681,0.7623,0.3965">It is noteworthy that Franklin over 200 years ago ident2ified the problem of limited working memory and how it affects one’s ability to make judgments. </span><span tabindex="0" class="sentence" id="obj_019f7001-5461-7fc8-8444-9987afd0b402" data-object-id="obj_019f7001-5461-7fc8-8444-9987afd0b402" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-5462-7459-9cdd-cc23afd27098" data-anchor-ids="anchor_019f7001-5462-7459-9cdd-cc23afd27098" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.2681,0.7623,0.3965">As Franklin noted, decision problems are difficult because people cannot keep all the pros and cons in mind at the same time. </span><span tabindex="0" class="sentence" id="obj_019f7001-5462-7459-9cdd-cc23afd27099" data-object-id="obj_019f7001-5462-7459-9cdd-cc23afd27099" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-5462-7459-9cdd-cc23afd2709a" data-anchor-ids="anchor_019f7001-5462-7459-9cdd-cc23afd2709a" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.2681,0.7623,0.3965">We focus first on one set of arguments and then on another, “. </span><span tabindex="0" class="sentence" id="obj_019f7001-5463-7c86-98d3-1137ec4c67a8" data-object-id="obj_019f7001-5463-7c86-98d3-1137ec4c67a8" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-5463-7c86-98d3-1137ec4c67a9" data-anchor-ids="anchor_019f7001-5463-7c86-98d3-1137ec4c67a9" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.2681,0.7623,0.3965">. </span><span tabindex="0" class="sentence" id="obj_019f7001-5463-7c86-98d3-1137ec4c67aa" data-object-id="obj_019f7001-5463-7c86-98d3-1137ec4c67aa" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-5463-7c86-98d3-1137ec4c67ab" data-anchor-ids="anchor_019f7001-5463-7c86-98d3-1137ec4c67ab" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.2681,0.7623,0.3965">. </span><span tabindex="0" class="sentence" id="obj_019f7001-5464-7a41-8ed8-c9f8f9de4733" data-object-id="obj_019f7001-5464-7a41-8ed8-c9f8f9de4733" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-5464-7a41-8ed8-c9f8f9de4734" data-anchor-ids="anchor_019f7001-5464-7a41-8ed8-c9f8f9de4734" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.2681,0.7623,0.3965">hence the various purposes and inclinations that alternatively prevail, and the uncertainty that perplexes us.”</span></p><div class="zh" lang="zh-CN">值得注意的是，富兰克林在200多年前就识别出了工作记忆有限这一问题，以及它如何影响一个人做判断的能力。正如富兰克林所指出的，决策问题之所以棘手，是因为人们无法同时把所有正反理由都记在心里。我们先专注于一组论点，然后又专注于另一组，“……由此产生了各种交替占上风的目的和倾向，以及使我们困惑的不确定性。”</div><p id="obj_019f7001-5464-7a41-8ed8-c9f8f9de4735" data-object-id="obj_019f7001-5464-7a41-8ed8-c9f8f9de4735" data-object-type="paragraph" data-page="115" data-anchor-id="anchor_019f7001-5465-7e95-ae2b-dd6d0e86b690" data-anchor-ids="anchor_019f7001-5465-7e95-ae2b-dd6d0e86b690" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.3954,0.7623,0.5419"><span tabindex="0" class="sentence" id="obj_019f7001-5465-7e95-ae2b-dd6d0e86b691" data-object-id="obj_019f7001-5465-7e95-ae2b-dd6d0e86b691" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-5465-7e95-ae2b-dd6d0e86b692" data-anchor-ids="anchor_019f7001-5465-7e95-ae2b-dd6d0e86b692" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.3954,0.7623,0.5419">Franklin also identified the solution—getting all the pros and cons out of his head and onto paper in some visible, shorthand form. </span><span tabindex="0" class="sentence" id="obj_019f7001-5465-7e95-ae2b-dd6d0e86b693" data-object-id="obj_019f7001-5465-7e95-ae2b-dd6d0e86b693" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-5466-7213-a13b-6faee1ce62f6" data-anchor-ids="anchor_019f7001-5466-7213-a13b-6faee1ce62f6" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.3954,0.7623,0.5419">The fact that this topic was part of the dialogue between such illustrious individuals reflects the type of people who use such analytical tools. </span><span tabindex="0" class="sentence" id="obj_019f7001-5466-7213-a13b-6faee1ce62f7" data-object-id="obj_019f7001-5466-7213-a13b-6faee1ce62f7" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-5466-7213-a13b-6faee1ce62f8" data-anchor-ids="anchor_019f7001-5466-7213-a13b-6faee1ce62f8" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.3954,0.7623,0.5419">These are not aids to be used by weak analysts but unneeded by the strong. </span><span tabindex="0" class="sentence" id="obj_019f7001-5467-72b9-9ee6-1a9cd070933f" data-object-id="obj_019f7001-5467-72b9-9ee6-1a9cd070933f" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-5467-72b9-9ee6-1a9cd0709340" data-anchor-ids="anchor_019f7001-5467-72b9-9ee6-1a9cd0709340" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.3954,0.7623,0.5419">Basic limitations of working memory affect everyone. </span><span tabindex="0" class="sentence" id="obj_019f7001-5467-72b9-9ee6-1a9cd0709341" data-object-id="obj_019f7001-5467-72b9-9ee6-1a9cd0709341" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-5467-72b9-9ee6-1a9cd0709342" data-anchor-ids="anchor_019f7001-5467-72b9-9ee6-1a9cd0709342" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.3954,0.7623,0.5419">It is the more astute and careful analysts who are most conscious of this and most likely to recognize the value gained by applying these very simple tools.</span></p><div class="zh" lang="zh-CN">富兰克林还识别出了解决办法——把所有正反理由从头脑中拿出来，以某种可见的、简略的形式落到纸上。这一话题成为如此声名显赫的人物之间对话的一部分，这一事实反映了使用此类分析工具的人的类型。这些辅助手段并非只有能力弱的分析人员才需要，能力强的分析人员同样用得上。工作记忆的基本限度影响着每一个人。正是那些更敏锐、更细心的分析人员，最能意识到这一点，也最有可能认识到运用这些极简单的工具所获得的价值。</div><p id="obj_019f7001-5468-7cab-b64e-347fd02f6542" data-object-id="obj_019f7001-5468-7cab-b64e-347fd02f6542" data-object-type="paragraph" data-page="115" data-anchor-id="anchor_019f7001-5468-7cab-b64e-347fd02f6543" data-anchor-ids="anchor_019f7001-5468-7cab-b64e-347fd02f6543" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.5409,0.7623,0.7056"><span tabindex="0" class="sentence" id="obj_019f7001-5468-7cab-b64e-347fd02f6544" data-object-id="obj_019f7001-5468-7cab-b64e-347fd02f6544" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-5469-72b9-95ed-70f69917a377" data-anchor-ids="anchor_019f7001-5469-72b9-95ed-70f69917a377" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.5409,0.7623,0.7056">Putting ideas into visible form ensures that they will last. </span><span tabindex="0" class="sentence" id="obj_019f7001-5469-72b9-95ed-70f69917a378" data-object-id="obj_019f7001-5469-72b9-95ed-70f69917a378" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-5469-72b9-95ed-70f69917a379" data-anchor-ids="anchor_019f7001-5469-72b9-95ed-70f69917a379" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.5409,0.7623,0.7056">They will lie around for days goading you into having further thoughts. </span><span tabindex="0" class="sentence" id="obj_019f7001-5469-72b9-95ed-70f69917a37a" data-object-id="obj_019f7001-5469-72b9-95ed-70f69917a37a" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-546a-7b56-8fa1-bfe457aa70db" data-anchor-ids="anchor_019f7001-546a-7b56-8fa1-bfe457aa70db" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.5409,0.7623,0.7056">Lists are effective because they exploit people’s tendency to be a bit compulsive—we want to keep adding to them. </span><span tabindex="0" class="sentence" id="obj_019f7001-546a-7b56-8fa1-bfe457aa70dc" data-object-id="obj_019f7001-546a-7b56-8fa1-bfe457aa70dc" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-546a-7b56-8fa1-bfe457aa70dd" data-anchor-ids="anchor_019f7001-546a-7b56-8fa1-bfe457aa70dd" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.5409,0.7623,0.7056">They let us get the obvious and habitual answers out of the way, so that we can add to the list by thinking of other ideas beyond those that came first to mind. </span><span tabindex="0" class="sentence" id="obj_019f7001-546b-7a09-a032-5636f714c0a1" data-object-id="obj_019f7001-546b-7a09-a032-5636f714c0a1" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-546b-7a09-a032-5636f714c0a2" data-anchor-ids="anchor_019f7001-546b-7a09-a032-5636f714c0a2" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.5409,0.7623,0.7056">One specialist in creativity has observed that “for the purpose of moving our minds, pencils can serve as crowbars”<sup id="ref-84"><a href="#note-84"><strong>84</strong></a></sup>—just by writing things down and making lists that stimulate new associations.</span></p><div class="zh" lang="zh-CN">把想法转化为可见的形式确保它们能够持久留存。它们会连续几天摆在那里，促使你产生进一步的思考。列表之所以有效，是因为它们利用了人们略带强迫性的倾向——我们想要不断往上添加。它们让我们把显而易见的、习惯性的答案先处理掉，从而能够通过思考那些并非最先想到的其他想法来扩充列表。一位研究创造力的专家曾观察到，“就推动我们的思维而言，铅笔可以充当撬棍” <sup><a href="#note-84">84</a></sup> ——只需把东西写下来、列成表，就能激发新的联想。</div><p id="obj_019f7001-546b-7a09-a032-5636f714c0a3" data-object-id="obj_019f7001-546b-7a09-a032-5636f714c0a3" data-object-type="paragraph" data-page="115" data-anchor-id="anchor_019f7001-546c-7a7b-a6c6-825f984669ec" data-anchor-ids="anchor_019f7001-546c-7a7b-a6c6-825f984669ec,anchor_019f7001-546c-7a7b-a6c6-825f984669ed" data-page-indices="115,116" data-pages="116,117" data-confidence="0.9000" data-source-bbox="0.2132,0.7045,0.7623,0.7783"><span tabindex="0" class="sentence" id="obj_019f7001-546c-7a7b-a6c6-825f984669ee" data-object-id="obj_019f7001-546c-7a7b-a6c6-825f984669ee" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-546d-7d8d-85a4-f158352ae987" data-anchor-ids="anchor_019f7001-546d-7d8d-85a4-f158352ae987" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.7045,0.7623,0.7783">With the key elements of a problem written down in some abbreviated form, it is far easier to work with each of the parts while still keeping the problem as a whole in view. </span><span tabindex="0" class="sentence" id="obj_019f7001-546d-7d8d-85a4-f158352ae988" data-object-id="obj_019f7001-546d-7d8d-85a4-f158352ae988" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-546d-7d8d-85a4-f158352ae989" data-anchor-ids="anchor_019f7001-546d-7d8d-85a4-f158352ae989" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.7045,0.7623,0.7783">Analysts can generally take account of more factors than when making a global judgment. </span><span tabindex="0" class="sentence" id="obj_019f7001-546e-72d8-9d41-1609c2019af8" data-object-id="obj_019f7001-546e-72d8-9d41-1609c2019af8" data-object-type="sentence" data-page="115" data-anchor-id="anchor_019f7001-546e-72d8-9d41-1609c2019af9" data-anchor-ids="anchor_019f7001-546e-72d8-9d41-1609c2019af9,anchor_019f7001-546e-72d8-9d41-1609c2019afa" data-page-indices="115,116" data-pages="116,117" data-confidence="0.9000" data-source-bbox="0.2132,0.7045,0.7623,0.7783">They can manipulate individual elements of the problem to examine the many alternatives available through rearranging, combining, or modifying them. </span><span tabindex="0" class="sentence" id="obj_019f7001-546f-7341-9fc7-088ccb80defa" data-object-id="obj_019f7001-546f-7341-9fc7-088ccb80defa" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-546f-7341-9fc7-088ccb80defb" data-anchor-ids="anchor_019f7001-546f-7341-9fc7-088ccb80defb" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.1505,0.7917,0.2788">Variables may be given more weight or deleted, causal relationships reconceptualized, or conceptual categories redefined. </span><span tabindex="0" class="sentence" id="obj_019f7001-546f-7341-9fc7-088ccb80defc" data-object-id="obj_019f7001-546f-7341-9fc7-088ccb80defc" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-5470-73f8-b20b-3d9f6395636c" data-anchor-ids="anchor_019f7001-5470-73f8-b20b-3d9f6395636c" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.1505,0.7917,0.2788">Such thoughts may arise spontaneously, but they are more likely to occur when an analyst looks at each element, one by one, and asks questions designed to encourage and facilitate consideration of alternative interpretations.</span></p><div class="zh" lang="zh-CN">把一个问题的关键要素以某种简略形式写下来后，你就能更轻松地逐一处理每个部分，同时把整个问题尽收眼底。分析人员通常能够考虑到比做整体判断时更多的因素。他们可以操控问题的各个要素，通过重新排列、组合或修改它们，来考察由此产生的许多备选方案。变量可以加大权重或删除，因果关系可以重新构想，概念类别可以重新定义。这类想法可能会自发产生，但当一个分析人员逐个审视每个要素，并提出旨在鼓励和便于考虑替代性解释的问题时，它们更有可能出现。</div><section class="source-gap-17" id="obj_019f7001-5472-79f1-9aa2-ca96bd679bce" data-object-id="obj_019f7001-5472-79f1-9aa2-ca96bd679bce" data-object-type="section" data-page="116" data-anchor-id="anchor_019f7001-5472-79f1-9aa2-ca96bd679bcf" data-anchor-ids="anchor_019f7001-5472-79f1-9aa2-ca96bd679bcf" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.2970,0.4144,0.3182" data-source-gap="0.0428"><h3 id="obj_019f7001-5472-79f1-9aa2-ca96bd679bd0" data-object-id="obj_019f7001-5472-79f1-9aa2-ca96bd679bd0" data-object-type="heading" data-page="116" data-anchor-id="anchor_019f7001-5472-79f1-9aa2-ca96bd679bd1" data-anchor-ids="anchor_019f7001-5472-79f1-9aa2-ca96bd679bd1" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.2970,0.4144,0.3182"><strong>Problem Structure</strong></h3><div class="zh" lang="zh-CN">问题结构</div><p class="source-gap-10" id="obj_019f7001-5473-795b-bd43-49f51d06ae94" data-object-id="obj_019f7001-5473-795b-bd43-49f51d06ae94" data-object-type="paragraph" data-page="116" data-anchor-id="anchor_019f7001-5474-7dfd-a38d-c48bacf88e6a" data-anchor-ids="anchor_019f7001-5474-7dfd-a38d-c48bacf88e6a" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.3285,0.7917,0.4387" data-source-gap="0.0243"><span tabindex="0" class="sentence" id="obj_019f7001-5474-7dfd-a38d-c48bacf88e6b" data-object-id="obj_019f7001-5474-7dfd-a38d-c48bacf88e6b" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-5474-7dfd-a38d-c48bacf88e6c" data-anchor-ids="anchor_019f7001-5474-7dfd-a38d-c48bacf88e6c" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.3285,0.7917,0.4387">Anything that has parts also has a structure that relates these parts to each other. </span><span tabindex="0" class="sentence" id="obj_019f7001-5474-7dfd-a38d-c48bacf88e6d" data-object-id="obj_019f7001-5474-7dfd-a38d-c48bacf88e6d" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-5475-7838-917d-d058b0482816" data-anchor-ids="anchor_019f7001-5475-7838-917d-d058b0482816" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.3285,0.7917,0.4387">One of the first steps in doing analysis is to determine an appropriate structure for the analytical problem, so that one can then identify the various parts and begin assembling information on them. </span><span tabindex="0" class="sentence" id="obj_019f7001-5475-7838-917d-d058b0482817" data-object-id="obj_019f7001-5475-7838-917d-d058b0482817" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-5475-7838-917d-d058b0482818" data-anchor-ids="anchor_019f7001-5475-7838-917d-d058b0482818" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.3285,0.7917,0.4387">Because there are many different kinds of analytical problems, there are also many different ways to structure analysis.</span></p><div class="zh" lang="zh-CN">任何有部分的事物也都有一个把这些部分相互联系起来的结构。做分析的最初步骤之一，就是为分析问题确定一个恰当的结构，这样人们就能识别出各个部分并开始收集关于它们的信息。因为分析问题有许多不同的种类，所以构建分析结构也有许多不同的方式。</div><p id="obj_019f7001-5476-754e-ad6d-fede5d7ff890" data-object-id="obj_019f7001-5476-754e-ad6d-fede5d7ff890" data-object-type="paragraph" data-page="116" data-anchor-id="anchor_019f7001-5476-754e-ad6d-fede5d7ff891" data-anchor-ids="anchor_019f7001-5476-754e-ad6d-fede5d7ff891" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.4376,0.7917,0.5296"><span tabindex="0" class="sentence" id="obj_019f7001-5476-754e-ad6d-fede5d7ff892" data-object-id="obj_019f7001-5476-754e-ad6d-fede5d7ff892" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-5476-754e-ad6d-fede5d7ff893" data-anchor-ids="anchor_019f7001-5476-754e-ad6d-fede5d7ff893" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.4376,0.7917,0.5296">Lists such as Franklin made are one of the simplest structures. </span><span tabindex="0" class="sentence" id="obj_019f7001-5477-79cd-9621-fc2a2799b37b" data-object-id="obj_019f7001-5477-79cd-9621-fc2a2799b37b" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-5477-79cd-9621-fc2a2799b37c" data-anchor-ids="anchor_019f7001-5477-79cd-9621-fc2a2799b37c" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.4376,0.7917,0.5296">An intelligence analyst might make lists of relevant variables, early warning indicators, alternative explanations, possible outcomes, factors a foreign leader will need to take into account when making a decision, or arguments for and against a given explanation or outcome.</span></p><div class="zh" lang="zh-CN">像富兰克林所做的那种列表，是最简单的结构之一。一个情报分析人员可以列出相关变量、预警指标、替代性解释、可能的结果、外国领导人在做决定时需要考虑的因素，或者支持和反对某一特定解释或结果的论点。</div><p id="obj_019f7001-5477-79cd-9621-fc2a2799b37d" data-object-id="obj_019f7001-5477-79cd-9621-fc2a2799b37d" data-object-type="paragraph" data-page="116" data-anchor-id="anchor_019f7001-5478-767c-a5cf-9df160f4de0d" data-anchor-ids="anchor_019f7001-5478-767c-a5cf-9df160f4de0d" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.5285,0.7917,0.6023"><span tabindex="0" class="sentence" id="obj_019f7001-5478-767c-a5cf-9df160f4de0e" data-object-id="obj_019f7001-5478-767c-a5cf-9df160f4de0e" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-5478-767c-a5cf-9df160f4de0f" data-anchor-ids="anchor_019f7001-5478-767c-a5cf-9df160f4de0f" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.5285,0.7917,0.6023">Other tools for structuring a problem include outlines, tables, diagrams, trees, and matrices, with many sub-species of each. </span><span tabindex="0" class="sentence" id="obj_019f7001-5479-74fa-a294-4bcd414a9143" data-object-id="obj_019f7001-5479-74fa-a294-4bcd414a9143" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-5479-74fa-a294-4bcd414a9144" data-anchor-ids="anchor_019f7001-5479-74fa-a294-4bcd414a9144" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.5285,0.7917,0.6023">For example, trees include decision trees and fault trees. </span><span tabindex="0" class="sentence" id="obj_019f7001-5479-74fa-a294-4bcd414a9145" data-object-id="obj_019f7001-5479-74fa-a294-4bcd414a9145" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-5479-74fa-a294-4bcd414a9146" data-anchor-ids="anchor_019f7001-5479-74fa-a294-4bcd414a9146" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.5285,0.7917,0.6023">Diagrams includes causal diagrams, influence diagrams, flow charts, and cognitive maps.</span></p><div class="zh" lang="zh-CN">其他构建问题结构的工具包括提纲、表格、图示、树状图和矩阵，每一种又有许多亚类。例如，树状图包括决策树和故障树。图示包括因果图、影响图、流程图和认知地图。</div><p id="obj_019f7001-547a-7df3-912a-832bba66f1c8" data-object-id="obj_019f7001-547a-7df3-912a-832bba66f1c8" data-object-type="paragraph" data-page="116" data-anchor-id="anchor_019f7001-547a-7df3-912a-832bba66f1c9" data-anchor-ids="anchor_019f7001-547a-7df3-912a-832bba66f1c9" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.6013,0.7917,0.7660"><span tabindex="0" class="sentence" id="obj_019f7001-547a-7df3-912a-832bba66f1ca" data-object-id="obj_019f7001-547a-7df3-912a-832bba66f1ca" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-547b-7cc9-ba2c-782a8b9a894d" data-anchor-ids="anchor_019f7001-547b-7cc9-ba2c-782a8b9a894d" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.6013,0.7917,0.7660">Consideration of all those tools is beyond the scope of this book, but several such tools are discussed. </span><span tabindex="0" class="sentence" id="obj_019f7001-547b-7cc9-ba2c-782a8b9a894e" data-object-id="obj_019f7001-547b-7cc9-ba2c-782a8b9a894e" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-547b-7cc9-ba2c-782a8b9a894f" data-anchor-ids="anchor_019f7001-547b-7cc9-ba2c-782a8b9a894f" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.6013,0.7917,0.7660">Chapter 11, “Biases in Perception of Cause and Effect,” has a section on Illusory Correlation that uses a (2x2) contingency table to structure analysis of the question: Is deception most likely when the stakes are very high? </span><span tabindex="0" class="sentence" id="obj_019f7001-547b-7cc9-ba2c-782a8b9a8950" data-object-id="obj_019f7001-547b-7cc9-ba2c-782a8b9a8950" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-547c-7ba6-a29b-07f1f8a02a06" data-anchor-ids="anchor_019f7001-547c-7ba6-a29b-07f1f8a02a06" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.6013,0.7917,0.7660">Chapter 8, “Analysis of Competing Hypotheses,” is arguably the most useful chapter in this book. </span><span tabindex="0" class="sentence" id="obj_019f7001-547c-7ba6-a29b-07f1f8a02a07" data-object-id="obj_019f7001-547c-7ba6-a29b-07f1f8a02a07" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-547c-7ba6-a29b-07f1f8a02a08" data-anchor-ids="anchor_019f7001-547c-7ba6-a29b-07f1f8a02a08" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.6013,0.7917,0.7660">It recommends using a matrix to array evidence for and against competing hypotheses to explain what is happening now or estimate what may happen in the future.</span></p><div class="zh" lang="zh-CN">考察所有这些工具超出了本书的范围，但书中讨论了其中几种工具。第11章《因果感知中的偏差》有一节讲虚幻相关，它使用一个（2×2）列联表来分析以下问题：当赌注非常高时，欺骗是否最有可能发生？第8章《竞争性假设分析》可以说是本书中最有用的一章。它建议使用一个矩阵来排布支持和反对各竞争性假设的证据，以解释当下正在发生什么或估计未来可能发生什么。</div><p id="obj_019f7001-547c-7ba6-a29b-07f1f8a02a09" data-object-id="obj_019f7001-547c-7ba6-a29b-07f1f8a02a09" data-object-type="paragraph" data-page="116" data-anchor-id="anchor_019f7001-547d-79de-b45a-59b4b151174a" data-anchor-ids="anchor_019f7001-547d-79de-b45a-59b4b151174a,anchor_019f7001-547d-79de-b45a-59b4b151174b" data-page-indices="116,117" data-pages="117,118" data-confidence="0.9000" data-source-bbox="0.2426,0.7649,0.7916,0.8205"><span tabindex="0" class="sentence" id="obj_019f7001-547d-79de-b45a-59b4b151174c" data-object-id="obj_019f7001-547d-79de-b45a-59b4b151174c" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-547e-764f-97d3-a6a4836e28d4" data-anchor-ids="anchor_019f7001-547e-764f-97d3-a6a4836e28d4" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.2426,0.7649,0.7916,0.8205">The discussion below also uses a matrix to illustrate decomposition and externalization and is intended to prepare you for the next chapter on “Analysis of Competing Hypotheses.” </span><span tabindex="0" class="sentence" id="obj_019f7001-547e-764f-97d3-a6a4836e28d5" data-object-id="obj_019f7001-547e-764f-97d3-a6a4836e28d5" data-object-type="sentence" data-page="116" data-anchor-id="anchor_019f7001-547e-764f-97d3-a6a4836e28d6" data-anchor-ids="anchor_019f7001-547e-764f-97d3-a6a4836e28d6,anchor_019f7001-547f-7525-af39-b87383f98bcf" data-page-indices="116,117" data-pages="117,118" data-confidence="0.9000" data-source-bbox="0.2426,0.7649,0.7916,0.8205">It demonstrates how to apply these tools to a type of decision commonly encountered in our personal lives.</span></p><div class="zh" lang="zh-CN">下面的讨论同样使用一个矩阵来说明分解和外化，其目的是为你准备好进入下一章《竞争性假设分析》。它演示了如何把这些工具应用于我们个人生活中常见的一类决策。</div></section><section id="obj_019f7001-5480-73c5-b464-a8d9f0cd9d42" data-object-id="obj_019f7001-5480-73c5-b464-a8d9f0cd9d42" data-object-type="section" data-page="117" data-anchor-id="anchor_019f7001-5480-73c5-b464-a8d9f0cd9d43" data-anchor-ids="anchor_019f7001-5480-73c5-b464-a8d9f0cd9d43" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.2015,0.4055,0.2228"><h3 id="obj_019f7001-5480-73c5-b464-a8d9f0cd9d44" data-object-id="obj_019f7001-5480-73c5-b464-a8d9f0cd9d44" data-object-type="heading" data-page="117" data-anchor-id="anchor_019f7001-5481-7a26-a88e-ea1b9bbea682" data-anchor-ids="anchor_019f7001-5481-7a26-a88e-ea1b9bbea682" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.2015,0.4055,0.2228"><strong>Car Purchase Matrix</strong></h3><div class="zh" lang="zh-CN">购车矩阵</div><p id="obj_019f7001-5481-7a26-a88e-ea1b9bbea685" data-object-id="obj_019f7001-5481-7a26-a88e-ea1b9bbea685" data-object-type="paragraph" data-page="117" data-anchor-id="anchor_019f7001-5482-71cf-b3bf-7b16cfab2e67" data-anchor-ids="anchor_019f7001-5482-71cf-b3bf-7b16cfab2e67" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.2217,0.7623,0.4046"><span tabindex="0" class="sentence" id="obj_019f7001-5482-71cf-b3bf-7b16cfab2e68" data-object-id="obj_019f7001-5482-71cf-b3bf-7b16cfab2e68" data-object-type="sentence" data-page="117" data-anchor-id="anchor_019f7001-5482-71cf-b3bf-7b16cfab2e69" data-anchor-ids="anchor_019f7001-5482-71cf-b3bf-7b16cfab2e69" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.2217,0.7623,0.4046">In choosing among alternative purchases, such as when buying a car, a new computer, or a house, people often want to maximize their satisfaction on a number of sometimes-conflicting dimensions. </span><span tabindex="0" class="sentence" id="obj_019f7001-5483-7a38-84b4-bbfa5ed4a240" data-object-id="obj_019f7001-5483-7a38-84b4-bbfa5ed4a240" data-object-type="sentence" data-page="117" data-anchor-id="anchor_019f7001-5483-7a38-84b4-bbfa5ed4a241" data-anchor-ids="anchor_019f7001-5483-7a38-84b4-bbfa5ed4a241" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.2217,0.7623,0.4046">They want a car at the lowest possible price, with the lowest maintenance cost, highest resale value, slickest styling, best handling, best gas mileage, largest trunk space, and so forth. </span><span tabindex="0" class="sentence" id="obj_019f7001-5483-7a38-84b4-bbfa5ed4a242" data-object-id="obj_019f7001-5483-7a38-84b4-bbfa5ed4a242" data-object-type="sentence" data-page="117" data-anchor-id="anchor_019f7001-5484-7ed2-8dd6-82334d61f91d" data-anchor-ids="anchor_019f7001-5484-7ed2-8dd6-82334d61f91d" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.2217,0.7623,0.4046">They can’t have it all, so they must decide what is most important and make tradeoffs. </span><span tabindex="0" class="sentence" id="obj_019f7001-5484-7ed2-8dd6-82334d61f91e" data-object-id="obj_019f7001-5484-7ed2-8dd6-82334d61f91e" data-object-type="sentence" data-page="117" data-anchor-id="anchor_019f7001-5484-7ed2-8dd6-82334d61f91f" data-anchor-ids="anchor_019f7001-5484-7ed2-8dd6-82334d61f91f" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.2217,0.7623,0.4046">As Ben Franklin said, the choice is sometimes difficult. </span><span tabindex="0" class="sentence" id="obj_019f7001-5484-7ed2-8dd6-82334d61f920" data-object-id="obj_019f7001-5484-7ed2-8dd6-82334d61f920" data-object-type="sentence" data-page="117" data-anchor-id="anchor_019f7001-5485-7f9c-a81c-54c582f2ad27" data-anchor-ids="anchor_019f7001-5485-7f9c-a81c-54c582f2ad27" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.2217,0.7623,0.4046">We vacillate between one choice and another, because we cannot keep in working memory at the same time all the characteristics of all the choices. </span><span tabindex="0" class="sentence" id="obj_019f7001-5485-7f9c-a81c-54c582f2ad28" data-object-id="obj_019f7001-5485-7f9c-a81c-54c582f2ad28" data-object-type="sentence" data-page="117" data-anchor-id="anchor_019f7001-5486-7255-990c-9e4a23a50957" data-anchor-ids="anchor_019f7001-5486-7255-990c-9e4a23a50957" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.2217,0.7623,0.4046">We think first of one and then the other.</span></p><div class="zh" lang="zh-CN">在各种备选购买方案中做选择时，比如在买车、买新电脑或买房时，人们往往想在若干有时相互冲突的维度上最大化自己的满意度。他们想要一辆车：价格尽可能低、维护成本最低、转售价值最高、造型最漂亮、操控最佳、油耗最省、后备箱空间最大，等等。他们不可能样样都得到，所以必须决定什么最重要并做出取舍。正如本·富兰克林所说，这种选择有时是困难的。我们在一个选择和另一个选择之间摇摆不定，因为我们无法同时在工作记忆中保持所有选择的所有特征。我们先想到一个，然后又想到另一个。</div><p id="obj_019f7001-5486-7255-990c-9e4a23a50958" data-object-id="obj_019f7001-5486-7255-990c-9e4a23a50958" data-object-type="paragraph" data-page="117" data-anchor-id="anchor_019f7001-5487-758d-b7bd-9119c9545121" data-anchor-ids="anchor_019f7001-5487-758d-b7bd-9119c9545121" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.4035,0.7623,0.5682"><span tabindex="0" class="sentence" id="obj_019f7001-5487-758d-b7bd-9119c9545122" data-object-id="obj_019f7001-5487-758d-b7bd-9119c9545122" data-object-type="sentence" data-page="117" data-anchor-id="anchor_019f7001-5487-758d-b7bd-9119c9545123" data-anchor-ids="anchor_019f7001-5487-758d-b7bd-9119c9545123" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.4035,0.7623,0.5682">To handle this problem analytically, follow the divide-and-conquer principle and “draw a picture” of the problem as a whole that helps you identify and make the tradeoffs. </span><span tabindex="0" class="sentence" id="obj_019f7001-5488-798d-809d-c279841f4155" data-object-id="obj_019f7001-5488-798d-809d-c279841f4155" data-object-type="sentence" data-page="117" data-anchor-id="anchor_019f7001-5488-798d-809d-c279841f4156" data-anchor-ids="anchor_019f7001-5488-798d-809d-c279841f4156" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.4035,0.7623,0.5682">The component parts of the car purchase problem are the cars you are considering buying and the attributes or dimensions you want to maximize. </span><span tabindex="0" class="sentence" id="obj_019f7001-5488-798d-809d-c279841f4157" data-object-id="obj_019f7001-5488-798d-809d-c279841f4157" data-object-type="sentence" data-page="117" data-anchor-id="anchor_019f7001-5489-7627-9af2-30b1c62c677a" data-anchor-ids="anchor_019f7001-5489-7627-9af2-30b1c62c677a" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.4035,0.7623,0.5682">After identifying the desirable attributes that will influence your decision, weigh how each car stacks up on each attribute. </span><span tabindex="0" class="sentence" id="obj_019f7001-5489-7627-9af2-30b1c62c677b" data-object-id="obj_019f7001-5489-7627-9af2-30b1c62c677b" data-object-type="sentence" data-page="117" data-anchor-id="anchor_019f7001-5489-7627-9af2-30b1c62c677c" data-anchor-ids="anchor_019f7001-5489-7627-9af2-30b1c62c677c" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.4035,0.7623,0.5682">A matrix is the appropriate tool for keeping track of your judgments about each car and each attribute, and then putting all the parts back together to make a decision.</span></p><div class="zh" lang="zh-CN">要以分析的方式处理这个问题，就遵循分而治之的原则，为整个问题“画一幅图”，帮助你识别并做出取舍。购车问题的组成部分是你正在考虑购买的那些车，以及你想要最大化的属性或维度。在识别出那些将影响你决定的合意属性之后，权衡每辆车在每个属性上的表现如何。矩阵是一个合适的工具，用来记录你对每辆车、每个属性的判断，然后把所有部分重新拼合到一起以做出决定。</div><p id="obj_019f7001-5489-7627-9af2-30b1c62c677d" data-object-id="obj_019f7001-5489-7627-9af2-30b1c62c677d" data-object-type="paragraph" data-page="117" data-anchor-id="anchor_019f7001-548a-76f6-8b5f-e7e64dd42c28" data-anchor-ids="anchor_019f7001-548a-76f6-8b5f-e7e64dd42c28" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.5672,0.7623,0.6046"><span tabindex="0" class="sentence" id="obj_019f7001-548a-76f6-8b5f-e7e64dd42c29" data-object-id="obj_019f7001-548a-76f6-8b5f-e7e64dd42c29" data-object-type="sentence" data-page="117" data-anchor-id="anchor_019f7001-548a-76f6-8b5f-e7e64dd42c2a" data-anchor-ids="anchor_019f7001-548a-76f6-8b5f-e7e64dd42c2a" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2132,0.5672,0.7623,0.6046">Start by listing the important attributes you want to maximize, as shown for example in Figure 11.</span></p><div class="zh" lang="zh-CN">先列出你想要最大化的重要属性，如图11中的示例所示。</div><figure class="source-gap-16 source-width-99" id="obj_019f7001-548b-7e72-833d-7648ce2361dc" data-object-id="obj_019f7001-548b-7e72-833d-7648ce2361dc" data-object-type="figure" data-page="117" data-anchor-id="anchor_019f7001-548b-7e72-833d-7648ce2361dd" data-anchor-ids="anchor_019f7001-548b-7e72-833d-7648ce2361dd" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.2139,0.6214,0.7574,0.8466" data-source-gap="0.0395" data-source-width="0.9897"><img src="../assets/figures/obj_019f7001-548b-7e72-833d-7648ce2361dc.png" alt=""></figure><p id="obj_019f7001-548c-7172-b994-f2e2f914d4df" data-object-id="obj_019f7001-548c-7172-b994-f2e2f914d4df" data-object-type="paragraph" data-page="118" data-anchor-id="anchor_019f7001-548c-7172-b994-f2e2f914d4e0" data-anchor-ids="anchor_019f7001-548c-7172-b994-f2e2f914d4e0" data-page-indices="118" data-pages="119" data-confidence="0.9000" data-source-bbox="0.2426,0.1505,0.7917,0.7516"><span tabindex="0" class="sentence" id="obj_019f7001-548c-7172-b994-f2e2f914d4e1" data-object-id="obj_019f7001-548c-7172-b994-f2e2f914d4e1" data-object-type="sentence" data-page="118" data-anchor-id="anchor_019f7001-548d-7bba-b29a-a8ddfb67723f" data-anchor-ids="anchor_019f7001-548d-7bba-b29a-a8ddfb67723f" data-page-indices="118" data-pages="119" data-confidence="0.9000" data-source-bbox="0.2426,0.1505,0.7917,0.2788">Next, quantify the relative importance of each attribute by dividing 100 percent among them. </span><span tabindex="0" class="sentence" id="obj_019f7001-548d-7bba-b29a-a8ddfb677240" data-object-id="obj_019f7001-548d-7bba-b29a-a8ddfb677240" data-object-type="sentence" data-page="118" data-anchor-id="anchor_019f7001-548d-7bba-b29a-a8ddfb677241" data-anchor-ids="anchor_019f7001-548d-7bba-b29a-a8ddfb677241" data-page-indices="118" data-pages="119" data-confidence="0.9000" data-source-bbox="0.2426,0.1505,0.7917,0.2788">In other words, ask yourself what percentage of the decision should be based on price, on styling, etc. This forces you to ask relevant questions and make decisions you might have glossed over if you had not broken the problem down in this manner. </span><span tabindex="0" class="sentence" id="obj_019f7001-548e-7a68-a49a-6c6238c40cf7" data-object-id="obj_019f7001-548e-7a68-a49a-6c6238c40cf7" data-object-type="sentence" data-page="118" data-anchor-id="anchor_019f7001-548e-7a68-a49a-6c6238c40cf8" data-anchor-ids="anchor_019f7001-548e-7a68-a49a-6c6238c40cf8" data-page-indices="118" data-pages="119" data-confidence="0.9000" data-source-bbox="0.2426,0.1505,0.7917,0.2788">How important is price versus styling, really? </span><span tabindex="0" class="sentence" id="obj_019f7001-548e-7a68-a49a-6c6238c40cf9" data-object-id="obj_019f7001-548e-7a68-a49a-6c6238c40cf9" data-object-type="sentence" data-page="118" data-anchor-id="anchor_019f7001-548f-7f05-89f8-634c6327d7fd" data-anchor-ids="anchor_019f7001-548f-7f05-89f8-634c6327d7fd" data-page-indices="118" data-pages="119" data-confidence="0.9000" data-source-bbox="0.2426,0.1505,0.7917,0.7516">Do you really care what it looks like from the outside, or are you mainly looking for comfort on the inside and how it drives? </span><span tabindex="0" class="sentence" id="obj_019f7001-548f-7f05-89f8-634c6327d7fe" data-object-id="obj_019f7001-548f-7f05-89f8-634c6327d7fe" data-object-type="sentence" data-page="118" data-anchor-id="anchor_019f7001-548f-7f05-89f8-634c6327d7ff" data-anchor-ids="anchor_019f7001-548f-7f05-89f8-634c6327d7ff" data-page-indices="118" data-pages="119" data-confidence="0.9000" data-source-bbox="0.2426,0.6778,0.7917,0.7516">Should safety be included in your list of important attributes? </span><span tabindex="0" class="sentence" id="obj_019f7001-5490-7afc-86ae-7b7030856c10" data-object-id="obj_019f7001-5490-7afc-86ae-7b7030856c10" data-object-type="sentence" data-page="118" data-anchor-id="anchor_019f7001-5490-7afc-86ae-7b7030856c11" data-anchor-ids="anchor_019f7001-5490-7afc-86ae-7b7030856c11" data-page-indices="118" data-pages="119" data-confidence="0.9000" data-source-bbox="0.2426,0.6778,0.7917,0.7516">Because poor gas mileage can be offset by lower maintenance cost for repairs, perhaps both should be combined into a single attribute called operating cost.</span></p><div class="zh" lang="zh-CN">下一步，通过在这些属性之间分配100%来量化每个属性的相对重要性。换句话说，问问你自己，这个决定应有多大百分比基于价格、多大百分比基于造型，等等。这迫使你提出相关的问题，并做出一些决定——如果不这样分解问题，你可能会将它们一带而过。价格相对于造型，究竟有多重要？你真的在意它从外面看起来怎样，还是你主要在寻求车内的舒适度以及它的驾驶感受？安全性是否应该被列入你重要属性的清单？因为油耗差可以被更低的维修保养成本所抵消，也许两者应该合并成一个叫做运营成本的单一属性。</div><figure class="source-width-99" id="obj_019f7001-5490-7afc-86ae-7b7030856c12" data-object-id="obj_019f7001-5490-7afc-86ae-7b7030856c12" data-object-type="figure" data-page="118" data-anchor-id="anchor_019f7001-5490-7afc-86ae-7b7030856c13" data-anchor-ids="anchor_019f7001-5490-7afc-86ae-7b7030856c13" data-page-indices="118" data-pages="119" data-confidence="0.9000" data-source-bbox="0.2419,0.2820,0.7868,0.6613" data-source-width="0.9923"><img src="../assets/figures/obj_019f7001-5490-7afc-86ae-7b7030856c12.png" alt=""></figure><p class="source-gap-84" id="obj_019f7001-5495-7b0d-86c0-319d3989ea1b" data-object-id="obj_019f7001-5495-7b0d-86c0-319d3989ea1b" data-object-type="paragraph" data-page="118" data-anchor-id="anchor_019f7001-5496-71ad-a123-e8615f198935" data-anchor-ids="anchor_019f7001-5496-71ad-a123-e8615f198935" data-page-indices="118" data-pages="119" data-confidence="0.9000" data-source-bbox="0.2426,0.7505,0.7917,0.8243" data-source-gap="0.2103"><span tabindex="0" class="sentence" id="obj_019f7001-5496-71ad-a123-e8615f198936" data-object-id="obj_019f7001-5496-71ad-a123-e8615f198936" data-object-type="sentence" data-page="118" data-anchor-id="anchor_019f7001-5496-71ad-a123-e8615f198937" data-anchor-ids="anchor_019f7001-5496-71ad-a123-e8615f198937" data-page-indices="118" data-pages="119" data-confidence="0.9000" data-source-bbox="0.2426,0.7505,0.7917,0.8243">This step might produce a result similar to Figure 12, depending on your personal preferences. </span><span tabindex="0" class="sentence" id="obj_019f7001-5497-7e86-939f-80042e4f0369" data-object-id="obj_019f7001-5497-7e86-939f-80042e4f0369" data-object-type="sentence" data-page="118" data-anchor-id="anchor_019f7001-5497-7e86-939f-80042e4f036a" data-anchor-ids="anchor_019f7001-5497-7e86-939f-80042e4f036a" data-page-indices="118" data-pages="119" data-confidence="0.9000" data-source-bbox="0.2426,0.7505,0.7917,0.8243">If you do this together with your spouse, the exact basis of any difference of opinion will become immediately apparent and can be quantified.</span></p><div class="zh" lang="zh-CN">这一步可能会产生类似图12的结果，具体取决于你的个人偏好。如果你和你的配偶一起做这件事，任何意见分歧的确切依据都会立即显现出来，并可以被量化。</div><figure class="source-width-99" id="obj_019f7001-5498-7f4f-9a27-abf59a3611f1" data-object-id="obj_019f7001-5498-7f4f-9a27-abf59a3611f1" data-object-type="figure" data-page="119" data-anchor-id="anchor_019f7001-5498-7f4f-9a27-abf59a3611f2" data-anchor-ids="anchor_019f7001-5498-7f4f-9a27-abf59a3611f2" data-page-indices="119" data-pages="120" data-confidence="0.9000" data-source-bbox="0.2132,0.1374,0.7574,0.4837" data-source-width="0.9909"><img src="../assets/figures/obj_019f7001-5498-7f4f-9a27-abf59a3611f1.png" alt=""></figure><p id="obj_019f7001-5499-7fb8-adcf-5506780c5bb8" data-object-id="obj_019f7001-5499-7fb8-adcf-5506780c5bb8" data-object-type="paragraph" data-page="119" data-anchor-id="anchor_019f7001-5499-7fb8-adcf-5506780c5bb9" data-anchor-ids="anchor_019f7001-5499-7fb8-adcf-5506780c5bb9" data-page-indices="119" data-pages="120" data-confidence="0.9000" data-source-bbox="0.2132,0.4808,0.7624,0.6092"><span tabindex="0" class="sentence" id="obj_019f7001-5499-7fb8-adcf-5506780c5bba" data-object-id="obj_019f7001-5499-7fb8-adcf-5506780c5bba" data-object-type="sentence" data-page="119" data-anchor-id="anchor_019f7001-549a-7363-971d-cb442cd3ece3" data-anchor-ids="anchor_019f7001-549a-7363-971d-cb442cd3ece3" data-page-indices="119" data-pages="120" data-confidence="0.9000" data-source-bbox="0.2132,0.4808,0.7624,0.6092">Next, identify the cars you are considering and judge how each one ranks on each of the six attributes shown in Figure 12. </span><span tabindex="0" class="sentence" id="obj_019f7001-549a-7363-971d-cb442cd3ece4" data-object-id="obj_019f7001-549a-7363-971d-cb442cd3ece4" data-object-type="sentence" data-page="119" data-anchor-id="anchor_019f7001-549a-7363-971d-cb442cd3ece5" data-anchor-ids="anchor_019f7001-549a-7363-971d-cb442cd3ece5" data-page-indices="119" data-pages="120" data-confidence="0.9000" data-source-bbox="0.2132,0.4808,0.7624,0.6092">Set up a matrix as shown in Figure 13 and work across the rows of the matrix. </span><span tabindex="0" class="sentence" id="obj_019f7001-549a-7363-971d-cb442cd3ece6" data-object-id="obj_019f7001-549a-7363-971d-cb442cd3ece6" data-object-type="sentence" data-page="119" data-anchor-id="anchor_019f7001-549b-7390-9177-146bcf07ec54" data-anchor-ids="anchor_019f7001-549b-7390-9177-146bcf07ec54" data-page-indices="119" data-pages="120" data-confidence="0.9000" data-source-bbox="0.2132,0.4808,0.7624,0.6092">For each attribute, take 10 points and divide it among the three cars based on how well they meet the requirements of that attribute. </span><span tabindex="0" class="sentence" id="obj_019f7001-549b-7390-9177-146bcf07ec55" data-object-id="obj_019f7001-549b-7390-9177-146bcf07ec55" data-object-type="sentence" data-page="119" data-anchor-id="anchor_019f7001-549b-7390-9177-146bcf07ec56" data-anchor-ids="anchor_019f7001-549b-7390-9177-146bcf07ec56" data-page-indices="119" data-pages="120" data-confidence="0.9000" data-source-bbox="0.2132,0.4808,0.7624,0.6092">(This is the same as taking 100 percent and dividing it among the cars, but it keeps the numbers lower when you get to the next step.)</span></p><div class="zh" lang="zh-CN">下一步，识别出你正在考虑的那些车，并判断每辆车在图12所示六个属性中的每一个上如何排名。像图13那样建立一个矩阵，并沿着矩阵的各行进行处理。对每个属性，拿10分，根据这三辆车各自满足该属性要求的程度，把这10分分配给它们。（这与拿100%分配给这些车是一样的，但当你进行到下一步时，它能让数字保持较小。）</div><p id="obj_019f7001-549b-7390-9177-146bcf07ec57" data-object-id="obj_019f7001-549b-7390-9177-146bcf07ec57" data-object-type="paragraph" data-page="119" data-anchor-id="anchor_019f7001-549c-7db4-8136-1c33e3eceaf8" data-anchor-ids="anchor_019f7001-549c-7db4-8136-1c33e3eceaf8" data-page-indices="119" data-pages="120" data-confidence="0.9000" data-source-bbox="0.2132,0.6081,0.7623,0.7001"><span tabindex="0" class="sentence" id="obj_019f7001-549c-7db4-8136-1c33e3eceaf9" data-object-id="obj_019f7001-549c-7db4-8136-1c33e3eceaf9" data-object-type="sentence" data-page="119" data-anchor-id="anchor_019f7001-549c-7db4-8136-1c33e3eceafa" data-anchor-ids="anchor_019f7001-549c-7db4-8136-1c33e3eceafa" data-page-indices="119" data-pages="120" data-confidence="0.9000" data-source-bbox="0.2132,0.6081,0.7623,0.7001">You now have a picture of your analytical problem—the comparative value you attribute to each of the principal attributes of a new car and a comparison of how various cars satisfy those desired attributes. </span><span tabindex="0" class="sentence" id="obj_019f7001-549d-7417-bbfa-6cab00cd230d" data-object-id="obj_019f7001-549d-7417-bbfa-6cab00cd230d" data-object-type="sentence" data-page="119" data-anchor-id="anchor_019f7001-549d-7417-bbfa-6cab00cd230e" data-anchor-ids="anchor_019f7001-549d-7417-bbfa-6cab00cd230e" data-page-indices="119" data-pages="120" data-confidence="0.7500" data-source-bbox="0.2132,0.6081,0.7623,0.7001">If you have narrowed it down to three alternatives, your matrix will look something like Figure 13:</span></p><div class="zh" lang="zh-CN">现在你有了一幅你的分析问题的图——你赋予一辆新车各主要属性的相对价值，以及各种车如何满足那些合意属性的比较。如果你已把范围缩小到三个备选方案，你的矩阵看起来会有点像图13：</div><p id="obj_019f7001-549d-7417-bbfa-6cab00cd230f" data-object-id="obj_019f7001-549d-7417-bbfa-6cab00cd230f" data-object-type="paragraph" data-page="119" data-anchor-id="anchor_019f7001-549e-7fdb-b45a-7deed80a2537" data-anchor-ids="anchor_019f7001-549e-7fdb-b45a-7deed80a2537,anchor_019f7001-549e-7fdb-b45a-7deed80a2538" data-page-indices="119,120" data-pages="120,121" data-confidence="0.9000" data-source-bbox="0.2132,0.6990,0.7623,0.8455"><span tabindex="0" class="sentence" id="obj_019f7001-549e-7fdb-b45a-7deed80a2539" data-object-id="obj_019f7001-549e-7fdb-b45a-7deed80a2539" data-object-type="sentence" data-page="119" data-anchor-id="anchor_019f7001-549e-7fdb-b45a-7deed80a253a" data-anchor-ids="anchor_019f7001-549e-7fdb-b45a-7deed80a253a" data-page-indices="119" data-pages="120" data-confidence="0.9000" data-source-bbox="0.2132,0.6990,0.7623,0.8455">When all the cells of the matrix have been filled in, you can then calculate which car best suits your preferences. </span><span tabindex="0" class="sentence" id="obj_019f7001-549f-73e3-adac-fe6f8529f4ae" data-object-id="obj_019f7001-549f-73e3-adac-fe6f8529f4ae" data-object-type="sentence" data-page="119" data-anchor-id="anchor_019f7001-549f-73e3-adac-fe6f8529f4af" data-anchor-ids="anchor_019f7001-549f-73e3-adac-fe6f8529f4af" data-page-indices="119" data-pages="120" data-confidence="0.9000" data-source-bbox="0.2132,0.6990,0.7623,0.8455">Multiply the percentage value you assigned to each attribute by the value you assigned to that attribute for each car, which produces the result in Figure 14. </span><span tabindex="0" class="sentence" id="obj_019f7001-549f-73e3-adac-fe6f8529f4b0" data-object-id="obj_019f7001-549f-73e3-adac-fe6f8529f4b0" data-object-type="sentence" data-page="119" data-anchor-id="anchor_019f7001-54a0-76cb-bc48-191758d8aea7" data-anchor-ids="anchor_019f7001-54a0-76cb-bc48-191758d8aea7,anchor_019f7001-54a0-76cb-bc48-191758d8aea8" data-page-indices="119,120" data-pages="120,121" data-confidence="0.9000" data-source-bbox="0.2132,0.6990,0.7623,0.8455">If the percentage values you assigned to each attribute accurately reflect your preferences, and if each car has been analyzed accurately, the analysis shows you will gain more satisfaction from the purchase of Car 3 than either of the alternatives. </span><span tabindex="0" class="sentence" id="obj_019f7001-54a0-76cb-bc48-191758d8aea9" data-object-id="obj_019f7001-54a0-76cb-bc48-191758d8aea9" data-object-type="sentence" data-page="120" data-anchor-id="anchor_019f7001-54a1-7b47-a491-7bd9ad6f9e4b" data-anchor-ids="anchor_019f7001-54a1-7b47-a491-7bd9ad6f9e4b" data-page-indices="120" data-pages="121" data-confidence="0.9000" data-source-bbox="0.2426,0.5348,0.7917,0.6995">At this point, you do a sensitivity analysis to determine whether plausible changes in some values in the matrix would swing the decision to a different car. </span><span tabindex="0" class="sentence" id="obj_019f7001-54a1-7b47-a491-7bd9ad6f9e4c" data-object-id="obj_019f7001-54a1-7b47-a491-7bd9ad6f9e4c" data-object-type="sentence" data-page="120" data-anchor-id="anchor_019f7001-54a1-7b47-a491-7bd9ad6f9e4d" data-anchor-ids="anchor_019f7001-54a1-7b47-a491-7bd9ad6f9e4d" data-page-indices="120" data-pages="121" data-confidence="0.9000" data-source-bbox="0.2426,0.5348,0.7917,0.6995">Assume, for example, that your spouse places different values than you on the relative importance of price versus styling. </span><span tabindex="0" class="sentence" id="obj_019f7001-54a1-7b47-a491-7bd9ad6f9e4e" data-object-id="obj_019f7001-54a1-7b47-a491-7bd9ad6f9e4e" data-object-type="sentence" data-page="120" data-anchor-id="anchor_019f7001-54a2-7c83-bc1b-0d53a284db63" data-anchor-ids="anchor_019f7001-54a2-7c83-bc1b-0d53a284db63" data-page-indices="120" data-pages="121" data-confidence="0.9000" data-source-bbox="0.2426,0.5348,0.7917,0.6995">You can insert your spouse’s percentage values for those two attributes and see if that makes a difference in the decision. </span><span tabindex="0" class="sentence" id="obj_019f7001-54a2-7c83-bc1b-0d53a284db64" data-object-id="obj_019f7001-54a2-7c83-bc1b-0d53a284db64" data-object-type="sentence" data-page="120" data-anchor-id="anchor_019f7001-54a2-7c83-bc1b-0d53a284db65" data-anchor-ids="anchor_019f7001-54a2-7c83-bc1b-0d53a284db65" data-page-indices="120" data-pages="121" data-confidence="0.9000" data-source-bbox="0.2426,0.5348,0.7917,0.6995">(For example, one could reduce the importance of price to 20 percent and increase styling to 30 percent. </span><span tabindex="0" class="sentence" id="obj_019f7001-54a3-7a88-9d72-30731b02bb84" data-object-id="obj_019f7001-54a3-7a88-9d72-30731b02bb84" data-object-type="sentence" data-page="120" data-anchor-id="anchor_019f7001-54a3-7a88-9d72-30731b02bb85" data-anchor-ids="anchor_019f7001-54a3-7a88-9d72-30731b02bb85" data-page-indices="120" data-pages="121" data-confidence="0.9000" data-source-bbox="0.2426,0.5348,0.7917,0.6995">That is still not quite enough to switch the choice to Car 2, which rates highest on styling.)</span></p><div class="zh" lang="zh-CN">当矩阵的所有单元格都填好后，你就可以计算出哪辆车最符合你的偏好。把你分配给每个属性的百分比值乘以你为每辆车在该属性上分配的值，就得出图14的结果。如果你分配给每个属性的百分比值准确地反映了你的偏好，并且如果每辆车都被准确地分析过，那么该分析显示，你从购买第3辆车中获得的满意度将高于任何一个备选方案。<br>到这一步，你要做一次敏感性分析，以确定矩阵中某些值的合理变动是否会把决定摆向另一辆车。举例来说，假设你的配偶对价格相对于造型的相对重要性所赋予的值与你不同。你可以代入你配偶对那两个属性的百分比值，看看这是否会对决定产生影响。（例如，可以把价格的重要性降到20%，把造型提高到30%。这仍不足以把选择切换到在造型上评分最高的第2辆车。）</div><figure class="source-width-99" id="obj_019f7001-54a4-73da-a86e-f50463a9d886" data-object-id="obj_019f7001-54a4-73da-a86e-f50463a9d886" data-object-type="figure" data-page="120" data-anchor-id="anchor_019f7001-54a4-73da-a86e-f50463a9d887" data-anchor-ids="anchor_019f7001-54a4-73da-a86e-f50463a9d887" data-page-indices="120" data-pages="121" data-confidence="0.9000" data-source-bbox="0.2426,0.1534,0.7868,0.5377" data-source-width="0.9910"><img src="../assets/figures/obj_019f7001-54a4-73da-a86e-f50463a9d886.png" alt=""></figure><p class="source-gap-152" id="obj_019f7001-54ae-74a6-831b-497bb88f7e85" data-object-id="obj_019f7001-54ae-74a6-831b-497bb88f7e85" data-object-type="paragraph" data-page="120" data-anchor-id="anchor_019f7001-54af-7580-9374-3e7caec55d0a" data-anchor-ids="anchor_019f7001-54af-7580-9374-3e7caec55d0a" data-page-indices="120" data-pages="121" data-confidence="0.9000" data-source-bbox="0.2426,0.6985,0.7917,0.8086" data-source-gap="0.3788"><span tabindex="0" class="sentence" id="obj_019f7001-54af-7580-9374-3e7caec55d0b" data-object-id="obj_019f7001-54af-7580-9374-3e7caec55d0b" data-object-type="sentence" data-page="120" data-anchor-id="anchor_019f7001-54b0-7b06-b237-d33bb9699d4f" data-anchor-ids="anchor_019f7001-54b0-7b06-b237-d33bb9699d4f" data-page-indices="120" data-pages="121" data-confidence="0.9000" data-source-bbox="0.2426,0.6985,0.7917,0.8086">There is a technical name for this type of analysis. </span><span tabindex="0" class="sentence" id="obj_019f7001-54b0-7b06-b237-d33bb9699d50" data-object-id="obj_019f7001-54b0-7b06-b237-d33bb9699d50" data-object-type="sentence" data-page="120" data-anchor-id="anchor_019f7001-54b1-7258-9ce4-8b5bd3a1bd56" data-anchor-ids="anchor_019f7001-54b1-7258-9ce4-8b5bd3a1bd56" data-page-indices="120" data-pages="121" data-confidence="0.9000" data-source-bbox="0.2426,0.6985,0.7917,0.8086">It is called Multiattribute Utility Analysis, and there are complex computer programs for doing it. </span><span tabindex="0" class="sentence" id="obj_019f7001-54b1-7258-9ce4-8b5bd3a1bd57" data-object-id="obj_019f7001-54b1-7258-9ce4-8b5bd3a1bd57" data-object-type="sentence" data-page="120" data-anchor-id="anchor_019f7001-54b1-7258-9ce4-8b5bd3a1bd58" data-anchor-ids="anchor_019f7001-54b1-7258-9ce4-8b5bd3a1bd58" data-page-indices="120" data-pages="121" data-confidence="0.9000" data-source-bbox="0.2426,0.6985,0.7917,0.8086">In simplified form, however, it requires only pencil and paper and high school arithmetic. </span><span tabindex="0" class="sentence" id="obj_019f7001-54b2-71f5-862a-b11929bcdd7f" data-object-id="obj_019f7001-54b2-71f5-862a-b11929bcdd7f" data-object-type="sentence" data-page="120" data-anchor-id="anchor_019f7001-54b2-71f5-862a-b11929bcdd80" data-anchor-ids="anchor_019f7001-54b2-71f5-862a-b11929bcdd80" data-page-indices="120" data-pages="121" data-confidence="0.9000" data-source-bbox="0.2426,0.6985,0.7917,0.8086">It is an appropriate structure for any purchase decision in which you must make tradeoffs between multiple competing preferences.</span></p><div class="zh" lang="zh-CN">这类分析有一个专门的名称。它叫做多属性效用分析，有一些复杂的电脑程序可以做这件事。然而，以简化的形式，它只需要铅笔、纸和中学算术。只要某项购买决策要求你在多个相互竞争的偏好之间做取舍，它就是一个合适的结构。</div></section><section id="obj_019f7001-54b3-70b7-b012-c6ce5df490ca" data-object-id="obj_019f7001-54b3-70b7-b012-c6ce5df490ca" data-object-type="section" data-page="121" data-anchor-id="anchor_019f7001-54b3-70b7-b012-c6ce5df490cb" data-anchor-ids="anchor_019f7001-54b3-70b7-b012-c6ce5df490cb" data-page-indices="121" data-pages="122" data-confidence="0.9000" data-source-bbox="0.2132,0.1503,0.3290,0.1716"><h3 id="obj_019f7001-54b3-70b7-b012-c6ce5df490cc" data-object-id="obj_019f7001-54b3-70b7-b012-c6ce5df490cc" data-object-type="heading" data-page="121" data-anchor-id="anchor_019f7001-54b4-7474-9e5c-14144a6b6819" data-anchor-ids="anchor_019f7001-54b4-7474-9e5c-14144a6b6819" data-page-indices="121" data-pages="122" data-confidence="0.9000" data-source-bbox="0.2132,0.1503,0.3290,0.1716"><strong>Conclusions</strong></h3><div class="zh" lang="zh-CN">结论</div><p class="source-gap-10" id="obj_019f7001-54b5-7fa8-b184-a491ba4a928c" data-object-id="obj_019f7001-54b5-7fa8-b184-a491ba4a928c" data-object-type="paragraph" data-page="121" data-anchor-id="anchor_019f7001-54b5-7fa8-b184-a491ba4a928d" data-anchor-ids="anchor_019f7001-54b5-7fa8-b184-a491ba4a928d" data-page-indices="121" data-pages="122" data-confidence="0.9000" data-source-bbox="0.2132,0.1819,0.7622,0.3284" data-source-gap="0.0243"><span tabindex="0" class="sentence" id="obj_019f7001-54b5-7fa8-b184-a491ba4a928e" data-object-id="obj_019f7001-54b5-7fa8-b184-a491ba4a928e" data-object-type="sentence" data-page="121" data-anchor-id="anchor_019f7001-54b5-7fa8-b184-a491ba4a928f" data-anchor-ids="anchor_019f7001-54b5-7fa8-b184-a491ba4a928f" data-page-indices="121" data-pages="122" data-confidence="0.9000" data-source-bbox="0.2132,0.1819,0.7622,0.3284">The car purchase example was a warmup for the following chapter. </span><span tabindex="0" class="sentence" id="obj_019f7001-54b6-7468-89cf-ff580699243f" data-object-id="obj_019f7001-54b6-7468-89cf-ff580699243f" data-object-type="sentence" data-page="121" data-anchor-id="anchor_019f7001-54b6-7468-89cf-ff5806992440" data-anchor-ids="anchor_019f7001-54b6-7468-89cf-ff5806992440" data-page-indices="121" data-pages="122" data-confidence="0.9000" data-source-bbox="0.2132,0.1819,0.7622,0.3284">It illustrates the difference between just sitting down and thinking about a problem and really <em>analyzing</em> a problem. </span><span tabindex="0" class="sentence" id="obj_019f7001-54b6-7468-89cf-ff5806992441" data-object-id="obj_019f7001-54b6-7468-89cf-ff5806992441" data-object-type="sentence" data-page="121" data-anchor-id="anchor_019f7001-54b7-7be7-9abd-f284d221a8bf" data-anchor-ids="anchor_019f7001-54b7-7be7-9abd-f284d221a8bf" data-page-indices="121" data-pages="122" data-confidence="0.9000" data-source-bbox="0.2132,0.1819,0.7622,0.3284">The essence of analysis is breaking down a problem into its component parts, assessing each part separately, then putting the parts back together to make a decision. </span><span tabindex="0" class="sentence" id="obj_019f7001-54b7-7be7-9abd-f284d221a8c0" data-object-id="obj_019f7001-54b7-7be7-9abd-f284d221a8c0" data-object-type="sentence" data-page="121" data-anchor-id="anchor_019f7001-54b7-7be7-9abd-f284d221a8c1" data-anchor-ids="anchor_019f7001-54b7-7be7-9abd-f284d221a8c1" data-page-indices="121" data-pages="122" data-confidence="0.9000" data-source-bbox="0.2132,0.1819,0.7622,0.3284">The matrix in this example forms a “picture” of a complex problem by getting it out of our head and onto paper in a logical form that enables you to consider each of the parts individually.</span></p><div class="zh" lang="zh-CN">购车这个例子是为下一章做的热身。它说明了仅仅坐下来思考一个问题与真正分析一个问题之间的区别。分析的本质是把一个问题分解成它的组成部分，分别评估每一部分，然后把各部分重新拼合到一起以做出决定。这个例子中的矩阵，把一个复杂问题从我们的头脑中取出，以一种能让你逐一考虑每个部分的逻辑形式落在纸上，因而构成了该问题的一幅“图”。</div><p id="obj_019f7001-54b7-7be7-9abd-f284d221a8c2" data-object-id="obj_019f7001-54b7-7be7-9abd-f284d221a8c2" data-object-type="paragraph" data-page="121" data-anchor-id="anchor_019f7001-54b8-7c3a-8b8f-a9299146c5e3" data-anchor-ids="anchor_019f7001-54b8-7c3a-8b8f-a9299146c5e3" data-page-indices="121" data-pages="122" data-confidence="0.9000" data-source-bbox="0.2132,0.3273,0.7623,0.4557"><span tabindex="0" class="sentence" id="obj_019f7001-54b8-7c3a-8b8f-a9299146c5e4" data-object-id="obj_019f7001-54b8-7c3a-8b8f-a9299146c5e4" data-object-type="sentence" data-page="121" data-anchor-id="anchor_019f7001-54b9-74d6-8da8-6d43ae3793de" data-anchor-ids="anchor_019f7001-54b9-74d6-8da8-6d43ae3793de" data-page-indices="121" data-pages="122" data-confidence="0.9000" data-source-bbox="0.2132,0.3273,0.7623,0.4557">You certainly would not want to do this type of analysis for all your everyday personal decisions or for every intelligence judgment. </span><span tabindex="0" class="sentence" id="obj_019f7001-54b9-74d6-8da8-6d43ae3793df" data-object-id="obj_019f7001-54b9-74d6-8da8-6d43ae3793df" data-object-type="sentence" data-page="121" data-anchor-id="anchor_019f7001-54b9-74d6-8da8-6d43ae3793e0" data-anchor-ids="anchor_019f7001-54b9-74d6-8da8-6d43ae3793e0" data-page-indices="121" data-pages="122" data-confidence="0.9000" data-source-bbox="0.2132,0.3273,0.7623,0.4557">You may wish to do it, however, for an especially important, difficult, or controversial judgment, or when you need to leave an audit trail showing how you arrived at a judgment. </span><span tabindex="0" class="sentence" id="obj_019f7001-54b9-74d6-8da8-6d43ae3793e1" data-object-id="obj_019f7001-54b9-74d6-8da8-6d43ae3793e1" data-object-type="sentence" data-page="121" data-anchor-id="anchor_019f7001-54ba-7228-be96-c2b2af66e01d" data-anchor-ids="anchor_019f7001-54ba-7228-be96-c2b2af66e01d" data-page-indices="121" data-pages="122" data-confidence="0.9000" data-source-bbox="0.2132,0.3273,0.7623,0.4557">The next chapter applies decomposition, externalization, and the matrix structure to a common type of intelligence problem.</span></p><div class="zh" lang="zh-CN">你当然不会想对你所有日常的个人决定或每一项情报判断都做这种类型的分析。然而，对于一项特别重要、困难或有争议的判断，或者当你需要留下一条审计轨迹来显示你是如何得出某项判断时，你也许会希望这样做。下一章把分解、外化和矩阵结构应用于一类常见的情报问题。</div></section></section><aside class="marginalia page_number" id="obj_019f7001-5446-7db1-8e48-a8a41f88b4c9" data-object-id="obj_019f7001-5446-7db1-8e48-a8a41f88b4c9" data-object-type="page_number" data-page="112" data-anchor-id="anchor_019f7001-5446-7db1-8e48-a8a41f88b4ca" data-anchor-ids="anchor_019f7001-5446-7db1-8e48-a8a41f88b4ca" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.5049,0.8794,0.5245,0.8986">85<br></aside><aside class="marginalia page_number" id="obj_019f7001-544f-71c6-a805-8e113a9374a2" data-object-id="obj_019f7001-544f-71c6-a805-8e113a9374a2" data-object-type="page_number" data-page="113" data-anchor-id="anchor_019f7001-5450-7ee5-9640-096cbdc50c8c" data-anchor-ids="anchor_019f7001-5450-7ee5-9640-096cbdc50c8c" data-page-indices="113" data-pages="114" data-confidence="0.9000" data-source-bbox="0.4755,0.8787,0.4951,0.8980">86<br></aside><aside class="marginalia page_number" id="obj_019f7001-545c-7cff-9462-c9f3f487feb9" data-object-id="obj_019f7001-545c-7cff-9462-c9f3f487feb9" data-object-type="page_number" data-page="114" data-anchor-id="anchor_019f7001-545c-7cff-9462-c9f3f487feba" data-anchor-ids="anchor_019f7001-545c-7cff-9462-c9f3f487feba" data-page-indices="114" data-pages="115" data-confidence="0.9000" data-source-bbox="0.5049,0.8794,0.5245,0.8986">87<br></aside><aside class="marginalia page_number" id="obj_019f7001-5471-7674-9ae1-ec9337b7bf76" data-object-id="obj_019f7001-5471-7674-9ae1-ec9337b7bf76" data-object-type="page_number" data-page="115" data-anchor-id="anchor_019f7001-5471-7674-9ae1-ec9337b7bf77" data-anchor-ids="anchor_019f7001-5471-7674-9ae1-ec9337b7bf77" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.4755,0.8787,0.4951,0.8980">88<br></aside><aside class="marginalia page_number" id="obj_019f7001-547f-7525-af39-b87383f98bd0" data-object-id="obj_019f7001-547f-7525-af39-b87383f98bd0" data-object-type="page_number" data-page="116" data-anchor-id="anchor_019f7001-547f-7525-af39-b87383f98bd1" data-anchor-ids="anchor_019f7001-547f-7525-af39-b87383f98bd1" data-page-indices="116" data-pages="117" data-confidence="0.9000" data-source-bbox="0.5049,0.8794,0.5245,0.8986">89<br></aside><aside class="marginalia page_number" id="obj_019f7001-548b-7e72-833d-7648ce2361de" data-object-id="obj_019f7001-548b-7e72-833d-7648ce2361de" data-object-type="page_number" data-page="117" data-anchor-id="anchor_019f7001-548b-7e72-833d-7648ce2361df" data-anchor-ids="anchor_019f7001-548b-7e72-833d-7648ce2361df" data-page-indices="117" data-pages="118" data-confidence="0.9000" data-source-bbox="0.4755,0.8787,0.4951,0.8980">90<br></aside><aside class="marginalia page_number" id="obj_019f7001-5498-7f4f-9a27-abf59a3611ef" data-object-id="obj_019f7001-5498-7f4f-9a27-abf59a3611ef" data-object-type="page_number" data-page="118" data-anchor-id="anchor_019f7001-5498-7f4f-9a27-abf59a3611f0" data-anchor-ids="anchor_019f7001-5498-7f4f-9a27-abf59a3611f0" data-page-indices="118" data-pages="119" data-confidence="0.9000" data-source-bbox="0.5049,0.8794,0.5245,0.8986">91<br></aside><aside class="marginalia page_number" id="obj_019f7001-54a3-7a88-9d72-30731b02bb86" data-object-id="obj_019f7001-54a3-7a88-9d72-30731b02bb86" data-object-type="page_number" data-page="119" data-anchor-id="anchor_019f7001-54a3-7a88-9d72-30731b02bb87" data-anchor-ids="anchor_019f7001-54a3-7a88-9d72-30731b02bb87" data-page-indices="119" data-pages="120" data-confidence="0.9000" data-source-bbox="0.4755,0.8787,0.4951,0.8980">92<br></aside><aside class="marginalia page_number" id="obj_019f7001-54b2-71f5-862a-b11929bcdd81" data-object-id="obj_019f7001-54b2-71f5-862a-b11929bcdd81" data-object-type="page_number" data-page="120" data-anchor-id="anchor_019f7001-54b3-70b7-b012-c6ce5df490c9" data-anchor-ids="anchor_019f7001-54b3-70b7-b012-c6ce5df490c9" data-page-indices="120" data-pages="121" data-confidence="0.9000" data-source-bbox="0.5049,0.8794,0.5245,0.8986">93<br></aside><aside class="marginalia page_number" id="obj_019f7001-54ba-7228-be96-c2b2af66e01e" data-object-id="obj_019f7001-54ba-7228-be96-c2b2af66e01e" data-object-type="page_number" data-page="121" data-anchor-id="anchor_019f7001-54ba-7228-be96-c2b2af66e01f" data-anchor-ids="anchor_019f7001-54ba-7228-be96-c2b2af66e01f" data-page-indices="121" data-pages="122" data-confidence="0.9000" data-source-bbox="0.4755,0.8787,0.4951,0.8980">94<br></aside><section class="notes" aria-label="Notes"><aside class="footnote source-gap-28" id="note-80" data-object-id="obj_019f7001-5445-7393-b883-642ed3152906" data-object-type="footnote" data-page="112" data-anchor-id="anchor_019f7001-5445-7393-b883-642ed3152907" data-anchor-ids="anchor_019f7001-5445-7393-b883-642ed3152907" data-page-indices="112" data-pages="113" data-confidence="0.9000" data-source-bbox="0.2426,0.8225,0.7717,0.8506" data-source-gap="0.0693">80. George A. Miller, “The Magical Number Seven, Plus or Minus Two: Some Limits on our Capacity for Processing Information.” <em>The Psychological Review</em>, Vol. 63, No. 2 (March 1956). <a class="note-back" href="#ref-80" aria-label="Back to text">↩</a><div class="zh" lang="zh-CN">乔治·A·米勒，《神奇数字七，加或减二：我们信息处理能力的若干限度》。《心理学评论》，第63卷，第2期（1956年3月）。（George A. Miller, &#x27;The Magical Number Seven, Plus or Minus Two: Some Limits on our Capacity for Processing Information.&#x27; The Psychological Review, Vol. 63, No. 2 (March 1956).）</div></aside><aside class="footnote source-gap-29" id="note-81" data-object-id="obj_019f7001-544e-77a1-bdcc-7548406f612b" data-object-type="footnote" data-page="113" data-anchor-id="anchor_019f7001-544f-71c6-a805-8e113a93749f" data-anchor-ids="anchor_019f7001-544f-71c6-a805-8e113a93749f" data-page-indices="113" data-pages="114" data-confidence="0.9000" data-source-bbox="0.2132,0.8225,0.6458,0.8506" data-source-gap="0.0735">81. <em>Webster’s Ninth New Collegiate Dictionary</em>, 1988. <a class="note-back" href="#ref-81" aria-label="Back to text">↩</a><div class="zh" lang="zh-CN">《韦氏第九版新大学词典》，1988年。（Webster&#x27;s Ninth New Collegiate Dictionary, 1988.）</div></aside><aside class="footnote" id="note-82" data-object-id="obj_019f7001-544f-71c6-a805-8e113a9374a0" data-object-type="footnote" data-page="113" data-anchor-id="anchor_019f7001-544f-71c6-a805-8e113a9374a1" data-anchor-ids="anchor_019f7001-544f-71c6-a805-8e113a9374a1" data-page-indices="113" data-pages="114" data-confidence="0.9000" data-source-bbox="0.2132,0.8225,0.6458,0.8506">82. Howard Raiffa, <em>Decision Analysis</em> (Reading, MA: Addison-Wesley, 1968). <a class="note-back" href="#ref-82" aria-label="Back to text">↩</a><div class="zh" lang="zh-CN">霍华德·雷法，《决策分析》（马萨诸塞州雷丁：艾迪生-韦斯利，1968年）。（Howard Raiffa, Decision Analysis (Reading, MA: Addison-Wesley, 1968).）</div></aside><aside class="footnote source-gap-29" id="note-83" data-object-id="obj_019f7001-5470-73f8-b20b-3d9f6395636d" data-object-type="footnote" data-page="115" data-anchor-id="anchor_019f7001-5470-73f8-b20b-3d9f6395636e" data-anchor-ids="anchor_019f7001-5470-73f8-b20b-3d9f6395636e" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.8089,0.7396,0.8506" data-source-gap="0.0721">83. J. Bigelow, ed., <em>The Complete Works of Benjamin Franklin</em> (New York: Putnam, 1887), p. 522. <a class="note-back" href="#ref-83" aria-label="Back to text">↩</a><div class="zh" lang="zh-CN">J·比奇洛编，《本杰明·富兰克林全集》（纽约：普特南，1887年），第522页。（J. Bigelow, ed., The Complete Works of Benjamin Franklin (New York: Putnam, 1887), p. 522.）</div></aside><aside class="footnote" id="note-84" data-object-id="obj_019f7001-5470-73f8-b20b-3d9f6395636f" data-object-type="footnote" data-page="115" data-anchor-id="anchor_019f7001-5471-7674-9ae1-ec9337b7bf75" data-anchor-ids="anchor_019f7001-5471-7674-9ae1-ec9337b7bf75" data-page-indices="115" data-pages="116" data-confidence="0.9000" data-source-bbox="0.2132,0.8089,0.7396,0.8506">84. Alex Osborn, <em>Applied Imagination</em>, Revised Edition (New York: Scribner’s, 1979), p. 202. <a class="note-back" href="#ref-84" aria-label="Back to text">↩</a><div class="zh" lang="zh-CN">亚历克斯·奥斯本，《应用想象力》，修订版（纽约：斯克里布纳出版社，1979年），第202页。（Alex Osborn, Applied Imagination, Revised Edition (New York: Scribner&#x27;s, 1979), p. 202.）</div></aside></section></article><nav class="publication-navigation publication-navigation-bottom" aria-label="Book navigation"><a class="publication-previous" rel="prev" href="09-chapter-06.html">← Chapter 6 — Keeping an Open Mind</a><a class="publication-contents" href="index.html">Contents</a><a class="publication-next" rel="next" href="11-chapter-08.html">Chapter 8 — Analysis of Competing Hypotheses →</a></nav><nav class="export-tools"><a id="source-pdf-link" href="../assets/original.pdf">Open original PDF</a></nav></main><script>(() => {
+  "use strict";
+
+  const viewer = document.querySelector("#source-viewer");
+  if (!viewer) return;
+
+  const image = viewer.querySelector("#source-image");
+  const sourceCanvas = viewer.querySelector("#source-canvas");
+  const pdfCanvas = viewer.querySelector("#source-pdf-canvas");
+  const overlays = viewer.querySelector("#source-overlays");
+  const legacyOverlay = viewer.querySelector("#source-overlay");
+  const label = viewer.querySelector("#source-label");
+  const pageLabel = viewer.querySelector("#source-page-label");
+  const previousRegion = viewer.querySelector("#source-prev");
+  const nextRegion = viewer.querySelector("#source-next");
+  const previousPage = viewer.querySelector("#source-page-prev");
+  const nextPage = viewer.querySelector("#source-page-next");
+  const zoomOut = viewer.querySelector("#source-zoom-out");
+  const zoomIn = viewer.querySelector("#source-zoom-in");
+  const zoomLabel = viewer.querySelector("#source-zoom-label");
+  const sourcePdfLink = viewer.querySelector("#source-pdf-link");
+  const sourcePdfBase = sourcePdfLink?.getAttribute("href") || "";
+  const reviewEmpty = viewer.querySelector("#review-empty");
+  const reviewFields = viewer.querySelector("#review-fields");
+  const reviewObjectId = viewer.querySelector("#review-object-id");
+  const reviewConfidence = viewer.querySelector("#review-confidence");
+  const reviewText = viewer.querySelector("#review-text");
+  const reviewType = viewer.querySelector("#review-type");
+  const reviewStatus = viewer.querySelector("#review-status");
+  const reviewSave = viewer.querySelector("#review-save");
+  const reviewSplit = viewer.querySelector("#review-split");
+  const reviewMergeIds = viewer.querySelector("#review-merge-ids");
+  const reviewMerge = viewer.querySelector("#review-merge");
+  const reviewAlternatives = viewer.querySelector("#review-alternatives");
+  const reviewIssues = viewer.querySelector("#review-issues");
+  const reviewMessage = viewer.querySelector("#review-message");
+  const svgNamespace = "http://www.w3.org/2000/svg";
+
+  let selectedAnchors = [];
+  let anchorIndex = 0;
+  let activeDocumentId = null;
+  let currentPage = null;
+  let pageCount = null;
+  let zoom = 1;
+  let pdfDocument = null;
+  let pdfRenderTask = null;
+  let pdfjsPromise = null;
+  let activeReview = null;
+
+  const isFiniteNumber = (value) => typeof value === "number" && Number.isFinite(value);
+
+  const selectObject = (objectId, scroll = true) => {
+    document.querySelectorAll(".is-selected").forEach((item) => {
+      item.classList.remove("is-selected");
+    });
+    if (!objectId) return;
+    const object = document.getElementById(objectId);
+    if (object) {
+      object.classList.add("is-selected");
+      if (scroll) object.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
+  const fetchJson = async (url, options = {}) => {
+    const headers = { accept: "application/json", ...(options.headers || {}) };
+    const response = await fetch(url, { ...options, headers });
+    if (!response.ok) {
+      let detail = `request failed (${response.status})`;
+      try {
+        const payload = await response.json();
+        if (typeof payload.detail === "string") detail = payload.detail;
+      } catch (_error) {
+        // Keep the status-only message for non-JSON failures.
+      }
+      throw new Error(detail);
+    }
+    return response.json();
+  };
+
+  const setReviewBusy = (busy) => {
+    if (reviewSave) reviewSave.disabled = busy;
+    if (reviewMerge) reviewMerge.disabled = busy;
+    if (reviewSplit) {
+      const canSplit =
+        activeReview && ["paragraph", "sentence"].includes(activeReview.object.object_type);
+      reviewSplit.disabled = busy || !canSplit;
+    }
+  };
+
+  const evidenceItem = (primary, secondary = "") => {
+    const item = document.createElement("li");
+    const heading = document.createElement("strong");
+    heading.textContent = primary;
+    item.append(heading);
+    if (secondary) {
+      const detail = document.createElement("div");
+      detail.textContent = secondary;
+      item.append(detail);
+    }
+    return item;
+  };
+
+  const renderEvidence = (container, items, render) => {
+    if (!container) return;
+    container.replaceChildren();
+    if (!Array.isArray(items) || !items.length) {
+      container.append(evidenceItem("None available"));
+      return;
+    }
+    items.forEach((item) => container.append(render(item)));
+  };
+
+  const loadReviewObject = async (objectId) => {
+    if (!objectId || !reviewFields) return;
+    reviewMessage.textContent = "Loading review evidence…";
+    const payload = await fetchJson(`/objects/${encodeURIComponent(objectId)}/review`);
+    activeReview = payload;
+    const object = payload.object;
+    reviewEmpty.hidden = true;
+    reviewFields.hidden = false;
+    reviewObjectId.textContent = object.id;
+    reviewConfidence.textContent =
+      typeof object.confidence === "number" ? object.confidence.toFixed(3) : "not scored";
+    reviewText.value = object.text_normalized ?? object.text_raw ?? "";
+    reviewType.value = object.object_type;
+    reviewStatus.value = object.status;
+    reviewMergeIds.value = object.id;
+    reviewSplit.disabled = !["paragraph", "sentence"].includes(object.object_type);
+    renderEvidence(reviewAlternatives, payload.parser_alternatives, (alternative) => {
+      const confidence =
+        typeof alternative.confidence === "number"
+          ? `, confidence ${alternative.confidence.toFixed(3)}`
+          : "";
+      return evidenceItem(
+        `${alternative.tool_name} (${alternative.object_type}${confidence})`,
+        alternative.text || "No text returned by this parser.",
+      );
+    });
+    renderEvidence(reviewIssues, payload.validation_issues, (issue) =>
+      evidenceItem(`${issue.severity}: ${issue.rule_code}`, issue.message),
+    );
+    reviewMessage.textContent = "";
+  };
+
+  const loadReviewSafely = (objectId) => {
+    loadReviewObject(objectId).catch((error) => {
+      reviewMessage.textContent = `Review details unavailable: ${error.message}`;
+    });
+  };
+
+  const mutateReview = async (url, method, payload) => {
+    setReviewBusy(true);
+    reviewMessage.textContent = "Saving…";
+    try {
+      return await fetchJson(url, {
+        method,
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } finally {
+      setReviewBusy(false);
+    }
+  };
+
+  const reloadAtObject = (objectId) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("object_id", objectId);
+    url.hash = objectId;
+    window.location.assign(url.toString());
+  };
+
+  const updateZoom = (value) => {
+    zoom = Math.min(4, Math.max(0.5, value));
+    sourceCanvas.style.width = `${zoom * 100}%`;
+    zoomLabel.textContent = `${Math.round(zoom * 100)}%`;
+    zoomOut.disabled = zoom <= 0.5;
+    zoomIn.disabled = zoom >= 4;
+  };
+
+  const loadPdfJs = async () => {
+    if (!pdfjsPromise) {
+      pdfjsPromise = import("/static/vendor/pdfjs/pdf.mjs").then((pdfjs) => {
+        pdfjs.GlobalWorkerOptions.workerSrc = "/static/vendor/pdfjs/pdf.worker.mjs";
+        return pdfjs;
+      });
+    }
+    return pdfjsPromise;
+  };
+
+  const renderPdfPage = async (pageIndex) => {
+    if (!pdfCanvas || !sourcePdfBase) throw new Error("PDF.js source is unavailable");
+    const pdfjs = await loadPdfJs();
+    if (!pdfDocument) {
+      const sourceUrl = sourcePdfBase.split("#", 1)[0];
+      const response = await fetch(sourceUrl, { headers: { accept: "application/pdf" } });
+      if (!response.ok) throw new Error(`PDF request failed (${response.status})`);
+      const data = new Uint8Array(await response.arrayBuffer());
+      pdfDocument = await pdfjs.getDocument({ data }).promise;
+    }
+    if (pdfRenderTask) {
+      pdfRenderTask.cancel();
+      pdfRenderTask = null;
+    }
+    const pdfPage = await pdfDocument.getPage(pageIndex + 1);
+    const baseViewport = pdfPage.getViewport({ scale: 1 });
+    const outputScale = Math.min(3, Math.max(1.5, window.devicePixelRatio || 1));
+    const renderScale = Math.max(outputScale, 1200 / Math.max(baseViewport.width, 1));
+    const viewport = pdfPage.getViewport({ scale: Math.min(3, renderScale) });
+    pdfCanvas.width = Math.ceil(viewport.width);
+    pdfCanvas.height = Math.ceil(viewport.height);
+    const context = pdfCanvas.getContext("2d", { alpha: false });
+    if (!context) throw new Error("PDF canvas is unavailable");
+    pdfRenderTask = pdfPage.render({ canvasContext: context, viewport });
+    try {
+      await pdfRenderTask.promise;
+    } finally {
+      pdfRenderTask = null;
+    }
+    pdfCanvas.hidden = false;
+    image.hidden = true;
+  };
+
+  const polygonPoints = (anchor) => {
+    if (!Array.isArray(anchor.polygon) || anchor.polygon.length < 3) return null;
+    const points = anchor.polygon.map((point) => {
+      if (!Array.isArray(point) || point.length < 2) return null;
+      const x = Number(point[0]);
+      const y = Number(point[1]);
+      return Number.isFinite(x) && Number.isFinite(y) ? [x, y] : null;
+    });
+    return points.every(Boolean) ? points : null;
+  };
+
+  const appendOverlay = (anchor, activeAnchor) => {
+    const polygon = polygonPoints(anchor);
+    let shape;
+    if (polygon) {
+      shape = document.createElementNS(svgNamespace, "polygon");
+      shape.setAttribute(
+        "points",
+        polygon.map(([x, y]) => `${x},${y}`).join(" "),
+      );
+    } else if (
+      [anchor.x0, anchor.y0, anchor.x1, anchor.y1].every(isFiniteNumber) &&
+      anchor.x1 >= anchor.x0 &&
+      anchor.y1 >= anchor.y0
+    ) {
+      shape = document.createElementNS(svgNamespace, "rect");
+      shape.setAttribute("x", String(anchor.x0));
+      shape.setAttribute("y", String(anchor.y0));
+      shape.setAttribute("width", String(anchor.x1 - anchor.x0));
+      shape.setAttribute("height", String(anchor.y1 - anchor.y0));
+    } else {
+      return;
+    }
+    shape.classList.add("source-overlay-shape");
+    if (activeAnchor?.id === anchor.id) shape.classList.add("is-active-region");
+    shape.dataset.anchorId = anchor.id;
+    overlays.append(shape);
+  };
+
+  const renderOverlays = () => {
+    overlays.replaceChildren();
+    legacyOverlay.hidden = true;
+    if (!currentPage || !isFiniteNumber(currentPage.width) || !isFiniteNumber(currentPage.height)) {
+      return;
+    }
+    overlays.setAttribute("viewBox", `0 0 ${currentPage.width} ${currentPage.height}`);
+    overlays.setAttribute("preserveAspectRatio", "none");
+    const activeAnchor = selectedAnchors[anchorIndex] || null;
+    selectedAnchors
+      .filter((anchor) => anchor.page_index === currentPage.page_index)
+      .forEach((anchor) => appendOverlay(anchor, activeAnchor));
+  };
+
+  const updateControls = () => {
+    previousRegion.disabled = anchorIndex <= 0;
+    nextRegion.disabled = !selectedAnchors.length || anchorIndex >= selectedAnchors.length - 1;
+    const pageIndex = currentPage?.page_index;
+    previousPage.disabled = !Number.isInteger(pageIndex) || pageIndex <= 0;
+    nextPage.disabled =
+      !Number.isInteger(pageIndex) || !Number.isInteger(pageCount) || pageIndex >= pageCount - 1;
+  };
+
+  const loadDocumentMetadata = async () => {
+    if (!activeDocumentId) return;
+    try {
+      const documentRecord = await fetchJson(
+        `/documents/${encodeURIComponent(activeDocumentId)}`,
+      );
+      pageCount = Number.isInteger(documentRecord.page_count) ? documentRecord.page_count : null;
+    } catch (_error) {
+      pageCount = null;
+    }
+  };
+
+  const loadPage = async (pageIndex) => {
+    if (!activeDocumentId || !Number.isInteger(pageIndex) || pageIndex < 0) return;
+    currentPage = await fetchJson(
+      `/documents/${encodeURIComponent(activeDocumentId)}/pages/${pageIndex}`,
+    );
+    image.alt = `Source PDF page ${pageIndex + 1}`;
+    pageLabel.textContent = pageCount
+      ? `Page ${pageIndex + 1} of ${pageCount}`
+      : `Page ${pageIndex + 1}`;
+    const activeAnchor = selectedAnchors[anchorIndex];
+    label.textContent =
+      activeAnchor?.page_index === pageIndex
+        ? `Source region ${anchorIndex + 1} of ${selectedAnchors.length}, page ${pageIndex + 1}`
+        : `Source page ${pageIndex + 1}`;
+    if (sourcePdfLink && sourcePdfBase) {
+      sourcePdfLink.setAttribute("href", `${sourcePdfBase.split("#", 1)[0]}#page=${pageIndex + 1}`);
+    }
+    try {
+      await renderPdfPage(pageIndex);
+      label.textContent = `${label.textContent} · rendered with PDF.js`;
+    } catch (_error) {
+      if (pdfCanvas) pdfCanvas.hidden = true;
+      image.hidden = false;
+      image.src = `/documents/${encodeURIComponent(activeDocumentId)}/pages/${pageIndex}/image`;
+    }
+    renderOverlays();
+    updateControls();
+  };
+
+  const showAnchor = async (index) => {
+    if (!selectedAnchors.length) return;
+    anchorIndex = Math.min(selectedAnchors.length - 1, Math.max(0, index));
+    await loadPage(selectedAnchors[anchorIndex].page_index);
+  };
+
+  const loadAnchors = async (anchorIds) => {
+    const uniqueIds = [...new Set(anchorIds.filter(Boolean))];
+    const records = await Promise.all(
+      uniqueIds.map(async (anchorId) => {
+        try {
+          return await fetchJson(`/source/${encodeURIComponent(anchorId)}`);
+        } catch (_error) {
+          return null;
+        }
+      }),
+    );
+    const available = records.filter(Boolean);
+    if (!available.length) throw new Error("source anchors unavailable");
+    activeDocumentId = available[0].document_id;
+    selectedAnchors = available.filter((anchor) => anchor.document_id === activeDocumentId);
+    anchorIndex = 0;
+    await loadDocumentMetadata();
+    await showAnchor(0);
+  };
+
+  const movePage = async (offset) => {
+    if (!currentPage) return;
+    const target = currentPage.page_index + offset;
+    if (target < 0 || (Number.isInteger(pageCount) && target >= pageCount)) return;
+    const matchingAnchor = selectedAnchors.findIndex((anchor) => anchor.page_index === target);
+    if (matchingAnchor >= 0) anchorIndex = matchingAnchor;
+    await loadPage(target);
+  };
+
+  previousRegion.addEventListener("click", async () => {
+    try {
+      await showAnchor(anchorIndex - 1);
+    } catch (_error) {
+      label.textContent = "Source preview unavailable; use the original PDF link.";
+    }
+  });
+
+  nextRegion.addEventListener("click", async () => {
+    try {
+      await showAnchor(anchorIndex + 1);
+    } catch (_error) {
+      label.textContent = "Source preview unavailable; use the original PDF link.";
+    }
+  });
+
+  previousPage.addEventListener("click", async () => {
+    try {
+      await movePage(-1);
+    } catch (_error) {
+      label.textContent = "Previous source page is unavailable.";
+    }
+  });
+
+  nextPage.addEventListener("click", async () => {
+    try {
+      await movePage(1);
+    } catch (_error) {
+      label.textContent = "Next source page is unavailable.";
+    }
+  });
+
+  zoomOut.addEventListener("click", () => updateZoom(zoom - 0.25));
+  zoomIn.addEventListener("click", () => updateZoom(zoom + 0.25));
+
+  document.addEventListener("click", async (event) => {
+    if (!(event.target instanceof Element)) return;
+    if (event.target.closest("a.internal-reference,a.backlink")) return;
+    const target = event.target.closest("[data-anchor-ids]");
+    if (!target) return;
+    const anchorIds = (target.dataset.anchorIds || "").split(",").filter(Boolean);
+    if (!anchorIds.length) return;
+    event.preventDefault();
+    const objectId = target.dataset.objectId;
+    selectObject(objectId);
+    loadReviewSafely(objectId);
+    try {
+      await loadAnchors(anchorIds);
+      viewer.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    } catch (_error) {
+      label.textContent = "Source preview unavailable; use the original PDF link.";
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!(event.target instanceof Element) || !["Enter", " "].includes(event.key)) return;
+    const target = event.target.closest("[data-anchor-ids]");
+    if (!target || target.matches("a,button")) return;
+    event.preventDefault();
+    target.click();
+  });
+
+  const hitTestSource = async (event) => {
+    if (!currentPage || !activeDocumentId) return;
+    const target = event.currentTarget;
+    if (!(target instanceof Element)) return;
+    const bounds = target.getBoundingClientRect();
+    if (!bounds.width || !bounds.height) return;
+    const x = ((event.clientX - bounds.left) / bounds.width) * currentPage.width;
+    const y = ((event.clientY - bounds.top) / bounds.height) * currentPage.height;
+    const url =
+      `/documents/${encodeURIComponent(activeDocumentId)}/pages/${currentPage.page_index}` +
+      `/hit-test?x=${encodeURIComponent(x)}&y=${encodeURIComponent(y)}&tolerance=4`;
+    try {
+      const hits = await fetchJson(url);
+      if (hits.length) {
+        selectObject(hits[0].object_id);
+        loadReviewSafely(hits[0].object_id);
+      }
+    } catch (_error) {
+      label.textContent = "Could not match this source position.";
+    }
+  };
+
+  image.addEventListener("click", hitTestSource);
+  if (pdfCanvas) pdfCanvas.addEventListener("click", hitTestSource);
+
+  reviewSave?.addEventListener("click", async () => {
+    if (!activeReview) return;
+    const object = activeReview.object;
+    const currentText = object.text_normalized ?? object.text_raw ?? "";
+    const payload = {
+      reason: "local review editor correction",
+      created_by: "local-user",
+      expected_updated_at: activeReview.updated_at,
+    };
+    if (reviewText.value !== currentText) payload.text_normalized = reviewText.value;
+    if (reviewType.value !== object.object_type) payload.object_type = reviewType.value;
+    if (reviewStatus.value !== object.status) payload.status = reviewStatus.value;
+    if (!("text_normalized" in payload || "object_type" in payload || "status" in payload)) {
+      reviewMessage.textContent = "No changes to save.";
+      return;
+    }
+    try {
+      const result = await mutateReview(
+        `/objects/${encodeURIComponent(object.id)}`,
+        "PATCH",
+        payload,
+      );
+      reviewMessage.textContent = `Saved revision ${result.revision_number}.`;
+      reloadAtObject(result.object_id);
+    } catch (error) {
+      reviewMessage.textContent = `Correction failed: ${error.message}`;
+    }
+  });
+
+  reviewSplit?.addEventListener("click", async () => {
+    if (!activeReview) return;
+    const object = activeReview.object;
+    const currentText = object.text_normalized ?? object.text_raw ?? "";
+    if (reviewText.value !== currentText) {
+      reviewMessage.textContent = "Save text edits before splitting.";
+      return;
+    }
+    const offset = reviewText.selectionStart;
+    if (!Number.isInteger(offset) || offset <= 0 || offset >= currentText.length) {
+      reviewMessage.textContent = "Place the text cursor inside the text before splitting.";
+      return;
+    }
+    try {
+      const result = await mutateReview(
+        `/objects/${encodeURIComponent(object.id)}/split`,
+        "POST",
+        {
+          offsets: [offset],
+          reason: "local review editor split",
+          created_by: "local-user",
+          expected_updated_at: activeReview.updated_at,
+        },
+      );
+      reviewMessage.textContent = `Created ${result.object_ids.length} objects.`;
+      reloadAtObject(result.object_ids[0]);
+    } catch (error) {
+      reviewMessage.textContent = `Split failed: ${error.message}`;
+    }
+  });
+
+  reviewMerge?.addEventListener("click", async () => {
+    if (!activeReview) return;
+    const objectIds = [
+      ...new Set(
+        reviewMergeIds.value
+          .split(",")
+          .map((value) => value.trim())
+          .filter(Boolean),
+      ),
+    ];
+    if (!objectIds.includes(activeReview.object.id)) objectIds.unshift(activeReview.object.id);
+    if (objectIds.length < 2) {
+      reviewMessage.textContent = "Enter at least one additional object ID to merge.";
+      return;
+    }
+    try {
+      const result = await mutateReview("/objects/merge", "POST", {
+        object_ids: objectIds,
+        reason: "local review editor merge",
+        created_by: "local-user",
+      });
+      reviewMessage.textContent = `Merged ${result.merged_object_ids.length} objects.`;
+      reloadAtObject(result.object_id);
+    } catch (error) {
+      reviewMessage.textContent = `Merge failed: ${error.message}`;
+    }
+  });
+
+  updateZoom(1);
+
+  const query = new URLSearchParams(window.location.search);
+  const requestedObject = query.get("object_id");
+  if (requestedObject) {
+    selectObject(requestedObject, false);
+    loadReviewSafely(requestedObject);
+  }
+  const requestedAnchor = query.get("anchor_id");
+  if (requestedAnchor) {
+    loadAnchors([requestedAnchor]).catch(() => {
+      label.textContent = "Requested source preview is unavailable.";
+    });
+  } else if (window.location.hash && window.location.hash !== "#source-viewer") {
+    try {
+      const objectId = decodeURIComponent(window.location.hash.slice(1));
+      selectObject(objectId, false);
+      loadReviewSafely(objectId);
+    } catch (_error) {
+      // Ignore malformed external fragments without changing the document.
+    }
+  }
+})();
+</script></body></html>
